@@ -1,0 +1,52 @@
+﻿<UserControl x:Class="TLCGen.Dordrecht.MOG.Views.MOGSignalGroupView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:TLCGen.Dordrecht.MOG.Views"
+             xmlns:ct="clr-namespace:TLCGen.Controls;assembly=TLCGen.Controls"
+             xmlns:vm="clr-namespace:TLCGen.Dordrecht.MOG.ViewModels"
+             mc:Ignorable="d"
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*" />
+            <ColumnDefinition Width="5" />
+            <ColumnDefinition Width="2*" />
+        </Grid.ColumnDefinitions>
+        <DockPanel>
+            <Label Content="MOG signaalgroep instellingen" DockPanel.Dock="Top" />
+            <ct:SimplePropertyEditor BoundObject="{Binding}" />
+        </DockPanel>
+        <GridSplitter Width="5" HorizontalAlignment="Stretch" Grid.Column="1" />
+        <Grid Grid.Column="2">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <Label Content="MOG detector instellingen" />
+            <ct:SpecialDataGrid Margin="2" ItemsSource="{Binding Path=MOGDetectoren}"
+                                SelectedItem="{Binding Path=SelectedMOGDetector}"
+                                Name="MOGSignalGroupsDG" Grid.Row="1"
+                                AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False">
+                <DataGrid.RowHeaderTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding RelativeSource={RelativeSource Mode=FindAncestor, 
+                                      AncestorType={x:Type DataGridRow}}, 
+                                      Path=Item.DetectorName}"/>
+                    </DataTemplate>
+                </DataGrid.RowHeaderTemplate>
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Instelling 1" Binding="{Binding Path=Instelling1}" />
+                </DataGrid.Columns>
+            </ct:SpecialDataGrid>
+            <ct:ItemsManagerView Grid.Row="2" Caption="Detectoren" 
+                                 SelectableItems="{Binding Path=SelectableDetectoren}"
+                                 SelectedItemToAdd="{Binding Path=SelectedMOGDetectorToAdd}" 
+                                 SelectedItemToRemove="{Binding Path=SelectedMOGDetector}"
+                                 AddItemCommand="{Binding Path=AddMOGDetectorCommand}"
+                                 RemoveItemCommand="{Binding Path=RemoveMOGDetectorCommand}"/>
+        </Grid>
+    </Grid>
+</UserControl>
