@@ -27,7 +27,7 @@
             </Grid.RowDefinitions>
             <Label Content="MOG detector instellingen" />
             <ct:SpecialDataGrid Margin="2" ItemsSource="{Binding Path=MOGDetectoren}"
-                                SelectedItem="{Binding Path=SelectedMOGDetector}"
+                                SelectedItem="{Binding Path=MOGDetectorenManager.SelectedItem,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
                                 Name="MOGSignalGroupsDG" Grid.Row="1"
                                 AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False">
                 <DataGrid.RowHeaderTemplate>
@@ -42,11 +42,11 @@
                 </DataGrid.Columns>
             </ct:SpecialDataGrid>
             <ct:ItemsManagerView Grid.Row="2" Caption="Detectoren" 
-                                 SelectableItems="{Binding Path=SelectableDetectoren}"
-                                 SelectedItemToAdd="{Binding Path=SelectedMOGDetectorToAdd}" 
-                                 SelectedItemToRemove="{Binding Path=SelectedMOGDetector}"
-                                 AddItemCommand="{Binding Path=AddMOGDetectorCommand}"
-                                 RemoveItemCommand="{Binding Path=RemoveMOGDetectorCommand}"/>
+                                 SelectableItems="{Binding Path=MOGDetectorenManager.SelectableItems}"
+                                 SelectedItemToAdd="{Binding Path=MOGDetectorenManager.SelectedItemToAdd,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" 
+                                 SelectedItemToRemove="{Binding Path=MOGDetectorenManager.SelectedItem,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
+                                 AddItemCommand="{Binding Path=MOGDetectorenManager.AddItemCommand}"
+                                 RemoveItemCommand="{Binding Path=MOGDetectorenManager.RemoveItemCommand}" />
         </Grid>
     </Grid>
 </UserControl>

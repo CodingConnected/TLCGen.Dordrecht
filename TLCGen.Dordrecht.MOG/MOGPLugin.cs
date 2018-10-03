@@ -163,7 +163,8 @@ namespace TLCGen.Dordrecht.MOG
             {
                 foreach (var fc in Controller.Fasen)
                 {
-                    if (_myTabViewModel.MOGSignalGroups.All(x => x.SignalGroupName != fc.Naam))
+                    if (fc.Type == TLCGen.Models.Enumerations.FaseTypeEnum.Auto &&
+                        _myTabViewModel.MOGSignalGroups.All(x => x.SignalGroupName != fc.Naam))
                     {
                         _myTabViewModel.MOGSignalGroups.Add(
                             new MOGSignalGroupViewModel(

@@ -1,6 +1,7 @@
 ﻿using GalaSoft.MvvmLight;
 using System;
 using System.ComponentModel;
+using System.Text.RegularExpressions;
 using TLCGen.Dordrecht.MOG.Models;
 using TLCGen.Helpers;
 
@@ -44,7 +45,11 @@ namespace TLCGen.Dordrecht.MOG.ViewModels
 
         public int CompareTo(object obj)
         {
-            return Detector.DetectorName.CompareTo(((MOGDetectorViewModel)obj).Detector.DetectorName);
+            var d1 = Regex.Replace(Detector.DetectorName, $@"^{Detector.SignalGroupName}", "");
+            var d2 = Regex.Replace(((MOGDetectorViewModel)obj).Detector.DetectorName, $@"^{Detector.SignalGroupName}", "");
+            if (d1.Length < d2.Length) d1 = d1.PadLeft(d2.Length, '0');
+            if (d2.Length < d1.Length) d2 = d2.PadLeft(d1.Length, '0');
+            return string.CompareOrdinal(d1, d2);
         }
 
         #endregion // IComparable
