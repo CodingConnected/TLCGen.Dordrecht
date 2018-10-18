@@ -8,18 +8,18 @@
              xmlns:vm="clr-namespace:TLCGen.Dordrecht.MOG.ViewModels"
              mc:Ignorable="d"
              d:DesignHeight="450" d:DesignWidth="800">
-    <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="1*" />
-            <ColumnDefinition Width="5" />
-            <ColumnDefinition Width="2*" />
-        </Grid.ColumnDefinitions>
+    <Grid Background="White" IsEnabled="{Binding Path=HasMOG}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="2*" />
+        </Grid.RowDefinitions>
         <DockPanel>
             <Label Content="MOG signaalgroep instellingen" DockPanel.Dock="Top" />
+            <!--<ComboBox ItemsSource="{Binding}" DockPanel.Dock="Bottom" Margin="2" />
+            <Label Content="Defaults:" DockPanel.Dock="Bottom" />-->
             <ct:SimplePropertyEditor BoundObject="{Binding}" />
         </DockPanel>
-        <GridSplitter Width="5" HorizontalAlignment="Stretch" Grid.Column="1" />
-        <Grid Grid.Column="2">
+        <Grid Grid.Row="1" Background="White">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="*" />
@@ -38,10 +38,20 @@
                     </DataTemplate>
                 </DataGrid.RowHeaderTemplate>
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="Instelling 1" Binding="{Binding Path=Instelling1}" />
+                    <DataGridTextColumn Header="Moment 1" Binding="{Binding Path=Moment1}" />
+                    <DataGridTextColumn Header="Moment 2" Binding="{Binding Path=Moment2}" />
+                    <DataGridTextColumn Header="TDH 1" Binding="{Binding Path=TDH1}" />
+                    <DataGridTextColumn Header="TDH 2" Binding="{Binding Path=TDH2}" />
+                    <DataGridTextColumn Header="Max" Binding="{Binding Path=Maxtijd}" />
+                    <DataGridCheckBoxColumn Header="Spring" Binding="{Binding Path=Spring}" />
+                    <DataGridCheckBoxColumn Header="Verleng niet" Binding="{Binding Path=VerlengNiet}" />
+                    <DataGridCheckBoxColumn Header="Verleng wel" Binding="{Binding Path=VerlengWel}" />
+                    <DataGridTextColumn Header="Vag4Mvt1" Binding="{Binding Path=Vag4Mvt1}" />
+                    <DataGridTextColumn Header="Vag4Mvt2" Binding="{Binding Path=Vag4Mvt2}" />
                 </DataGrid.Columns>
             </ct:SpecialDataGrid>
-            <ct:ItemsManagerView Grid.Row="2" Caption="Detectoren" 
+            <ct:ItemsManagerView Grid.Row="2" Caption="Detectoren handmatig toevoegen/verwijderen"
+                                 SelectableItemsVisibility="Visible"
                                  SelectableItems="{Binding Path=MOGDetectorenManager.SelectableItems}"
                                  SelectedItemToAdd="{Binding Path=MOGDetectorenManager.SelectedItemToAdd,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" 
                                  SelectedItemToRemove="{Binding Path=MOGDetectorenManager.SelectedItem,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"

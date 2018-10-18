@@ -14,7 +14,7 @@ namespace TLCGen.Dordrecht.MOG
 {
     [TLCGenTabItem(-1, TabItemTypeEnum.MainWindow)]
     [TLCGenPlugin(TLCGenPluginElems.PlugMessaging | TLCGenPluginElems.TabControl | TLCGenPluginElems.XMLNodeWriter)]
-    public class AFMPlugin : ITLCGenPlugMessaging, ITLCGenTabItem, ITLCGenXMLNodeWriter
+    public class MOGPlugin : ITLCGenPlugMessaging, ITLCGenTabItem, ITLCGenXMLNodeWriter
     {
         #region Fields
 
@@ -192,7 +192,7 @@ namespace TLCGen.Dordrecht.MOG
 
         #region Constructor
 
-        public AFMPlugin()
+        public MOGPlugin()
         {
             _myTabViewModel = new MOGPluginTabViewModel();
         }

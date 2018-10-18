@@ -12,7 +12,8 @@ namespace TLCGen.Dordrecht.MOG.Models
         public string SignalGroupName { get; set; }
         public bool HasMOG { get; set; }
 
-        public int Instelling1 { get; set; }
+        public IVERSnelheidEnum Snelheid { get; set; }
+        public bool KijkenNaarKoplus { get; set; }
 
         [XmlArray(ElementName = "MOGDetector")]
         public List<MOGDetectorModel> MOGDetectoren { get; set; }

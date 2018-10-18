@@ -68,8 +68,41 @@ namespace TLCGen.Dordrecht.MOG.ViewModels
         {
             MessengerInstance.Register(this, new Action<FasenChangedMessage>(OnFasenChanged));
             MessengerInstance.Register(this, new Action<DetectorenChangedMessage>(OnDetectorenChanged));
+            MessengerInstance.Register(this, new Action<FaseDetectorTypeChangedMessage>(OnFaseDetectorTypeChanged));
             MessengerInstance.Register(this, new Action<NameChangedMessage>(OnNameChanged));
             MessengerInstance.Register(this, new Action<FasenSortedMessage>(OnFasenSorted));
+        }
+
+        private void OnFaseDetectorTypeChanged(FaseDetectorTypeChangedMessage obj)
+        {
+            var fc = DataAccess.TLCGenControllerDataProvider.Default.Controller.Fasen.FirstOrDefault(x => x.Detectoren.Any(x2 => x2.Naam == obj.DetectorDefine));
+            if (fc != null)
+            {
+                var d = fc.Detectoren.First(x => x.Naam == obj.DetectorDefine);
+                var mfc = MOGSignalGroups.FirstOrDefault(x => x.SignalGroupName == fc.Naam);
+                if (mfc != null && 
+                    (d.Type == TLCGen.Models.Enumerations.DetectorTypeEnum.Kop ||
+                     d.Type == TLCGen.Models.Enumerations.DetectorTypeEnum.Lang ||
+                     d.Type == TLCGen.Models.Enumerations.DetectorTypeEnum.Verweg))
+                {
+                    if (!mfc.MOGDetectoren.Any(x => x.DetectorName == d.Naam))
+                    {
+                        mfc.MOGDetectoren.Add(new MOGDetectorViewModel(new MOGDetectorModel
+                        {
+                            DetectorName = d.Naam,
+                            SignalGroupName = fc.Naam
+                        }));
+                    }
+                    mfc.MOGDetectoren.BubbleSort();
+                }
+                else if (mfc != null && mfc.MOGDetectoren.Any(x => x.DetectorName == d.Naam))
+                {
+                    var r = mfc.MOGDetectoren.First(x => x.DetectorName == d.Naam);
+                    mfc.MOGDetectoren.Remove(r);
+                    mfc.MOGDetectoren.BubbleSort();
+                }
+                if (mfc != null) mfc.MOGDetectorenManager.UpdateSelectables(fc.Detectoren.Select(x => x.Naam));
+            }
         }
 
         #endregion
@@ -80,28 +113,42 @@ namespace TLCGen.Dordrecht.MOG.ViewModels
         {
             if (message.AddedDetectoren?.Count > 0)
             {
-                if (message.AddedDetectoren != null)
+                foreach(var d in message.AddedDetectoren)
                 {
-                    //foreach (var fc in message.AddedDetectoren.Where(x => x.Type == TLCGen.Models.Enumerations.FaseTypeEnum.Auto))
-                    //{
-                    //    //SelectableFasen.Add(fc.Naam);
-                    //}
-                    ////SelectableFasen.BubbleSort();
+                    var fc = DataAccess.TLCGenControllerDataProvider.Default.Controller.Fasen.FirstOrDefault(x => x.Detectoren.Any(x2 => x2.Naam == d.Naam));
+                    if(fc != null)
+                    {
+                        var mfc = MOGSignalGroups.FirstOrDefault(x => x.SignalGroupName == fc.Naam);
+                        if (mfc != null)
+                        {
+                            if (!mfc.MOGDetectoren.Any(x => x.DetectorName == d.Naam) &&
+                                (d.Type == TLCGen.Models.Enumerations.DetectorTypeEnum.Kop ||
+                                 d.Type == TLCGen.Models.Enumerations.DetectorTypeEnum.Lang ||
+                                 d.Type == TLCGen.Models.Enumerations.DetectorTypeEnum.Verweg))
+                            {
+                                mfc.MOGDetectoren.Add(new MOGDetectorViewModel(new MOGDetectorModel
+                                {
+                                    DetectorName = d.Naam,
+                                    SignalGroupName = fc.Naam
+                                }));
+                            }
+                            mfc.MOGDetectoren.BubbleSort();
+                            mfc.MOGDetectorenManager.UpdateSelectables(fc.Detectoren.Select(x => x.Naam));
+                        }
+                    }
                 }
             }
             if (message.RemovedDetectoren?.Count > 0)
             {
-                var rems = new List<MOGSignalGroupViewModel>();
-                //foreach (var fc in message.RemovedDetectoren)
-                //{
-                //    var r = MOGSignalGroups.FirstOrDefault(x => x.SignalGroupName == fc.Naam);
-                //    if (r != null) rems.Add(r);
-                //    //SelectableFasen.Remove(fc.Naam);
-                //}
-                //foreach (var r in rems)
-                //{
-                //    MOGSignalGroups.Remove(r);
-                //}
+                foreach(var mfc in MOGSignalGroups)
+                {
+                    var rem = mfc.MOGDetectoren.Where(x => message.RemovedDetectoren.Any(x2 => x2.Naam == x.DetectorName));
+                    foreach(var r in rem)
+                    {
+                        mfc.MOGDetectoren.Remove(r);
+                        mfc.MOGDetectorenManager.SelectableItems.Remove(r.DetectorName);
+                    }
+                }
             }
         }
 
@@ -133,6 +180,7 @@ namespace TLCGen.Dordrecht.MOG.ViewModels
         private void OnNameChanged(NameChangedMessage message)
         {
             ModelManagement.TLCGenModelManager.Default.ChangeNameOnObject(_model, message.OldName, message.NewName);
+            foreach (var mfc in MOGSignalGroups) mfc.MOGDetectoren.BubbleSort();
             RaisePropertyChanged("");
         }
 

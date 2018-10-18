@@ -20,13 +20,107 @@ namespace TLCGen.Dordrecht.MOG.ViewModels
         [Browsable(false)]
         public string DetectorName => Detector.DetectorName;
 
-        public int Instelling1
+        public int Moment1
         {
-            get => Detector.Instelling1;
+            get => Detector.Moment1;
             set
             {
-                Detector.Instelling1 = value;
-                RaisePropertyChanged();
+                Detector.Moment1 = value;
+                RaisePropertyChanged<object>(broadcast: true);
+            }
+        }
+
+        public int Moment2
+        {
+            get => Detector.Moment2;
+            set
+            {
+                Detector.Moment2 = value;
+                RaisePropertyChanged<object>(broadcast: true);
+            }
+        }
+
+        public int TDH1
+        {
+            get => Detector.TDH1;
+            set
+            {
+
+                if (TDH2 < value + 1) Detector.TDH2 = value + 1;
+                Detector.TDH1 = value;
+                RaisePropertyChanged<object>(broadcast: true);
+                RaisePropertyChanged(nameof(TDH2));
+            }
+        }
+
+        public int TDH2
+        {
+            get => Detector.TDH2;
+            set
+            {
+                if (value < TDH1 + 1) value = TDH1 + 1;
+                Detector.TDH2 = value;
+                RaisePropertyChanged<object>(broadcast: true);
+            }
+        }
+
+        public int Maxtijd
+        {
+            get => Detector.Maxtijd;
+            set
+            {
+                Detector.Maxtijd = value;
+                RaisePropertyChanged<object>(broadcast: true);
+            }
+        }
+
+        public bool Spring
+        {
+            get => Detector.Spring;
+            set
+            {
+                Detector.Spring = value;
+                RaisePropertyChanged<object>(broadcast: true);
+            }
+        }
+
+        public bool VerlengNiet
+        {
+            get => Detector.VerlengNiet;
+            set
+            {
+                Detector.VerlengNiet = value;
+                RaisePropertyChanged<object>(broadcast: true);
+            }
+        }
+
+        public bool VerlengWel
+        {
+            get => Detector.VerlengWel;
+            set
+            {
+                Detector.VerlengWel = value;
+                RaisePropertyChanged<object>(broadcast: true);
+            }
+        }
+
+        public int Vag4Mvt1
+        {
+            get => Detector.Vag4Mvt1;
+            set
+            {
+                Detector.Vag4Mvt1 = value;
+                RaisePropertyChanged<object>(broadcast: true);
+            }
+        }
+
+        public int Vag4Mvt2
+        {
+            get => Detector.Vag4Mvt2;
+            set
+            {
+                Detector.Vag4Mvt2 = value;
+                RaisePropertyChanged<object>(broadcast: true);
             }
         }
 

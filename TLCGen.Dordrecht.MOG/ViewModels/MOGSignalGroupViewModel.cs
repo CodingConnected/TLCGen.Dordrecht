@@ -6,6 +6,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Windows.Input;
 using TLCGen.Dordrecht.MOG.Models;
+using TLCGen.Extensions;
 using TLCGen.Helpers;
 using RelayCommand = GalaSoft.MvvmLight.CommandWpf.RelayCommand;
 
@@ -54,16 +55,49 @@ namespace TLCGen.Dordrecht.MOG.ViewModels
             set
             {
                 SignalGroup.HasMOG = value;
+                if (value)
+                {
+                    var fc = DataAccess.TLCGenControllerDataProvider.Default.Controller.Fasen.FirstOrDefault(x => x.Naam == SignalGroupName);
+                    if (fc != null)
+                    {
+                        foreach (var d in fc.Detectoren)
+                        {
+                            if (!MOGDetectoren.Any(x => x.DetectorName == d.Naam) &&
+                                (d.Type == TLCGen.Models.Enumerations.DetectorTypeEnum.Kop ||
+                                 d.Type == TLCGen.Models.Enumerations.DetectorTypeEnum.Lang ||
+                                 d.Type == TLCGen.Models.Enumerations.DetectorTypeEnum.Verweg))
+                            {
+                                MOGDetectoren.Add(new MOGDetectorViewModel(new MOGDetectorModel
+                                {
+                                    DetectorName = d.Naam,
+                                    SignalGroupName = SignalGroupName
+                                }));
+                            }
+                        }
+                        MOGDetectoren.BubbleSort();
+                    }
+                }
                 RaisePropertyChanged();
             }
         }
 
-        public int Instelling1
+        public IVERSnelheidEnum Snelheid
         {
-            get => SignalGroup.Instelling1;
+            get => SignalGroup.Snelheid;
             set
             {
-                SignalGroup.Instelling1 = value;
+                SignalGroup.Snelheid = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [Description("Hiaatmeting vanaf ED koplus")]
+        public bool KijkenNaarLus
+        {
+            get => SignalGroup.KijkenNaarKoplus;
+            set
+            {
+                SignalGroup.KijkenNaarKoplus = value;
                 RaisePropertyChanged();
             }
         }
