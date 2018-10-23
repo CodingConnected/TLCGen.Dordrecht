@@ -2,12 +2,12 @@
 using System;
 using System.ComponentModel;
 using System.Text.RegularExpressions;
-using TLCGen.Dordrecht.MOG.Models;
+using TLCGen.Dordrecht.DynamischeHiaat.Models;
 using TLCGen.Helpers;
 
-namespace TLCGen.Dordrecht.MOG.ViewModels
+namespace TLCGen.Dordrecht.DynamischeHiaat.ViewModels
 {
-    internal class MOGDetectorViewModel : ViewModelBase, IViewModelWithItem, IComparable
+    internal class DynamischeHiaatDetectorViewModel : ViewModelBase, IViewModelWithItem, IComparable
     {
         #region Fields
         #endregion // Fields
@@ -15,7 +15,7 @@ namespace TLCGen.Dordrecht.MOG.ViewModels
         #region Properties
 
         [Browsable(false)]
-        public MOGDetectorModel Detector { get; }
+        public DynamischeHiaatDetectorModel Detector { get; }
 
         [Browsable(false)]
         public string DetectorName => Detector.DetectorName;
@@ -104,7 +104,7 @@ namespace TLCGen.Dordrecht.MOG.ViewModels
             }
         }
 
-        public int Vag4Mvt1
+        public int? Vag4Mvt1
         {
             get => Detector.Vag4Mvt1;
             set
@@ -114,7 +114,7 @@ namespace TLCGen.Dordrecht.MOG.ViewModels
             }
         }
 
-        public int Vag4Mvt2
+        public int? Vag4Mvt2
         {
             get => Detector.Vag4Mvt2;
             set
@@ -140,7 +140,7 @@ namespace TLCGen.Dordrecht.MOG.ViewModels
         public int CompareTo(object obj)
         {
             var d1 = Regex.Replace(Detector.DetectorName, $@"^{Detector.SignalGroupName}", "");
-            var d2 = Regex.Replace(((MOGDetectorViewModel)obj).Detector.DetectorName, $@"^{Detector.SignalGroupName}", "");
+            var d2 = Regex.Replace(((DynamischeHiaatDetectorViewModel)obj).Detector.DetectorName, $@"^{Detector.SignalGroupName}", "");
             if (d1.Length < d2.Length) d1 = d1.PadLeft(d2.Length, '0');
             if (d2.Length < d1.Length) d2 = d2.PadLeft(d1.Length, '0');
             return string.CompareOrdinal(d1, d2);
@@ -150,7 +150,7 @@ namespace TLCGen.Dordrecht.MOG.ViewModels
 
         #region Constructor
 
-        public MOGDetectorViewModel(MOGDetectorModel detector)
+        public DynamischeHiaatDetectorViewModel(DynamischeHiaatDetectorModel detector)
         {
             Detector = detector;
         }

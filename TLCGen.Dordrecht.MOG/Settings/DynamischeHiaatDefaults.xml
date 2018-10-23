@@ -1,0 +1,500 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<DynamischeHiaatDefaults xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Defaults>
+    <DynamischeHiaatDefault>
+      <Name>IVER'18</Name>
+      <DefaultSnelheid>50 km/u</DefaultSnelheid>
+      <Snelheden>
+        <Snelheid>
+          <Name>40 km/u</Name>
+          <Detectoren>
+            <Detector>
+              <SignalGroupName />
+              <DetectorName />
+              <Moment1>0</Moment1>
+              <Moment2>0</Moment2>
+              <TDH1>0</TDH1>
+              <TDH2>0</TDH2>
+              <Maxtijd>80</Maxtijd>
+              <Spring>true</Spring>
+              <VerlengNiet>true</VerlengNiet>
+              <VerlengWel>false</VerlengWel>
+              <Vag4Mvt1 xsi:nil="true"></Vag4Mvt1>
+              <Vag4Mvt2 xsi:nil="true"></Vag4Mvt2>
+            </Detector>
+            <Detector>
+              <SignalGroupName />
+              <DetectorName />
+              <Moment1>0</Moment1>
+              <Moment2>0</Moment2>
+              <TDH1>1</TDH1>
+              <TDH2>1</TDH2>
+              <Maxtijd>0</Maxtijd>
+              <Spring>true</Spring>
+              <VerlengNiet>false</VerlengNiet>
+              <VerlengWel>false</VerlengWel>
+              <Vag4Mvt1 xsi:nil="true"></Vag4Mvt1>
+              <Vag4Mvt2 xsi:nil="true"></Vag4Mvt2>
+            </Detector>
+            <Detector>
+              <SignalGroupName />
+              <DetectorName />
+              <Moment1>0</Moment1>
+              <Moment2>0</Moment2>
+              <TDH1>15</TDH1>
+              <TDH2>15</TDH2>
+              <Maxtijd>0</Maxtijd>
+              <Spring>false</Spring>
+              <VerlengNiet>false</VerlengNiet>
+              <VerlengWel>false</VerlengWel>
+              <Vag4Mvt1 xsi:nil="true"></Vag4Mvt1>
+              <Vag4Mvt2 xsi:nil="true"></Vag4Mvt2>
+            </Detector>
+            <Detector>
+              <SignalGroupName />
+              <DetectorName />
+              <Moment1>0</Moment1>
+              <Moment2>0</Moment2>
+              <TDH1>10</TDH1>
+              <TDH2>10</TDH2>
+              <Maxtijd>0</Maxtijd>
+              <Spring>false</Spring>
+              <VerlengNiet>false</VerlengNiet>
+              <VerlengWel>false</VerlengWel>
+              <Vag4Mvt1>30</Vag4Mvt1>
+              <Vag4Mvt2>30</Vag4Mvt2>
+            </Detector>
+          </Detectoren>
+        </Snelheid>
+        <Snelheid>
+          <Name>50 km/u</Name>
+          <Detectoren>
+            <Detector>
+              <SignalGroupName />
+              <DetectorName />
+              <Moment1>0</Moment1>
+              <Moment2>0</Moment2>
+              <TDH1>0</TDH1>
+              <TDH2>0</TDH2>
+              <Maxtijd>80</Maxtijd>
+              <Spring>true</Spring>
+              <VerlengNiet>true</VerlengNiet>
+              <VerlengWel>false</VerlengWel>
+              <Vag4Mvt1 xsi:nil="true"></Vag4Mvt1>
+              <Vag4Mvt2 xsi:nil="true"></Vag4Mvt2>
+            </Detector>
+            <Detector>
+              <SignalGroupName />
+              <DetectorName />
+              <Moment1>0</Moment1>
+              <Moment2>0</Moment2>
+              <TDH1>1</TDH1>
+              <TDH2>1</TDH2>
+              <Maxtijd>100</Maxtijd>
+              <Spring>true</Spring>
+              <VerlengNiet>false</VerlengNiet>
+              <VerlengWel>false</VerlengWel>
+              <Vag4Mvt1 xsi:nil="true"></Vag4Mvt1>
+              <Vag4Mvt2 xsi:nil="true"></Vag4Mvt2>
+            </Detector>
+            <Detector>
+              <SignalGroupName />
+              <DetectorName />
+              <Moment1>100</Moment1>
+              <Moment2>220</Moment2>
+              <TDH1>20</TDH1>
+              <TDH2>7</TDH2>
+              <Maxtijd>0</Maxtijd>
+              <Spring>false</Spring>
+              <VerlengNiet>false</VerlengNiet>
+              <VerlengWel>false</VerlengWel>
+              <Vag4Mvt1 xsi:nil="true"></Vag4Mvt1>
+              <Vag4Mvt2 xsi:nil="true"></Vag4Mvt2>
+            </Detector>
+            <Detector>
+              <SignalGroupName />
+              <DetectorName />
+              <Moment1>0</Moment1>
+              <Moment2>0</Moment2>
+              <TDH1>25</TDH1>
+              <TDH2>25</TDH2>
+              <Maxtijd>0</Maxtijd>
+              <Spring>false</Spring>
+              <VerlengNiet>false</VerlengNiet>
+              <VerlengWel>false</VerlengWel>
+              <Vag4Mvt1>30</Vag4Mvt1>
+              <Vag4Mvt2>30</Vag4Mvt2>
+            </Detector>
+          </Detectoren>
+        </Snelheid>
+        <Snelheid>
+          <Name>60 km/u</Name>
+          <Detectoren>
+            <Detector>
+              <SignalGroupName />
+              <DetectorName />
+              <Moment1>0</Moment1>
+              <Moment2>0</Moment2>
+              <TDH1>0</TDH1>
+              <TDH2>0</TDH2>
+              <Maxtijd>80</Maxtijd>
+              <Spring>true</Spring>
+              <VerlengNiet>true</VerlengNiet>
+              <VerlengWel>false</VerlengWel>
+              <Vag4Mvt1 xsi:nil="true"></Vag4Mvt1>
+              <Vag4Mvt2 xsi:nil="true"></Vag4Mvt2>
+            </Detector>
+            <Detector>
+              <SignalGroupName />
+              <DetectorName />
+              <Moment1>0</Moment1>
+              <Moment2>0</Moment2>
+              <TDH1>1</TDH1>
+              <TDH2>1</TDH2>
+              <Maxtijd>100</Maxtijd>
+              <Spring>true</Spring>
+              <VerlengNiet>true</VerlengNiet>
+              <VerlengWel>false</VerlengWel>
+              <Vag4Mvt1 xsi:nil="true"></Vag4Mvt1>
+              <Vag4Mvt2 xsi:nil="true"></Vag4Mvt2>
+            </Detector>
+            <Detector>
+              <SignalGroupName />
+              <DetectorName />
+              <Moment1>100</Moment1>
+              <Moment2>200</Moment2>
+              <TDH1>20</TDH1>
+              <TDH2>3</TDH2>
+              <Maxtijd>0</Maxtijd>
+              <Spring>false</Spring>
+              <VerlengNiet>false</VerlengNiet>
+              <VerlengWel>false</VerlengWel>
+              <Vag4Mvt1 xsi:nil="true"></Vag4Mvt1>
+              <Vag4Mvt2 xsi:nil="true"></Vag4Mvt2>
+            </Detector>
+            <Detector>
+              <SignalGroupName />
+              <DetectorName />
+              <Moment1>0</Moment1>
+              <Moment2>0</Moment2>
+              <TDH1>15</TDH1>
+              <TDH2>15</TDH2>
+              <Maxtijd>0</Maxtijd>
+              <Spring>false</Spring>
+              <VerlengNiet>false</VerlengNiet>
+              <VerlengWel>false</VerlengWel>
+              <Vag4Mvt1 xsi:nil="true"></Vag4Mvt1>
+              <Vag4Mvt2 xsi:nil="true"></Vag4Mvt2>
+            </Detector>
+            <Detector>
+              <SignalGroupName />
+              <DetectorName />
+              <Moment1>0</Moment1>
+              <Moment2>0</Moment2>
+              <TDH1>25</TDH1>
+              <TDH2>25</TDH2>
+              <Maxtijd>0</Maxtijd>
+              <Spring>false</Spring>
+              <VerlengNiet>false</VerlengNiet>
+              <VerlengWel>false</VerlengWel>
+              <Vag4Mvt1>30</Vag4Mvt1>
+              <Vag4Mvt2>30</Vag4Mvt2>
+            </Detector>
+          </Detectoren>
+        </Snelheid>
+        <Snelheid>
+          <Name>70 km/u</Name>
+          <Detectoren>
+            <Detector>
+              <SignalGroupName />
+              <DetectorName />
+              <Moment1>0</Moment1>
+              <Moment2>0</Moment2>
+              <TDH1>0</TDH1>
+              <TDH2>0</TDH2>
+              <Maxtijd>80</Maxtijd>
+              <Spring>true</Spring>
+              <VerlengNiet>true</VerlengNiet>
+              <VerlengWel>false</VerlengWel>
+              <Vag4Mvt1 xsi:nil="true"></Vag4Mvt1>
+              <Vag4Mvt2 xsi:nil="true"></Vag4Mvt2>
+            </Detector>
+            <Detector>
+              <SignalGroupName />
+              <DetectorName />
+              <Moment1>0</Moment1>
+              <Moment2>0</Moment2>
+              <TDH1>1</TDH1>
+              <TDH2>1</TDH2>
+              <Maxtijd>100</Maxtijd>
+              <Spring>true</Spring>
+              <VerlengNiet>true</VerlengNiet>
+              <VerlengWel>false</VerlengWel>
+              <Vag4Mvt1 xsi:nil="true"></Vag4Mvt1>
+              <Vag4Mvt2 xsi:nil="true"></Vag4Mvt2>
+            </Detector>
+            <Detector>
+              <SignalGroupName />
+              <DetectorName />
+              <Moment1>120</Moment1>
+              <Moment2>200</Moment2>
+              <TDH1>20</TDH1>
+              <TDH2>3</TDH2>
+              <Maxtijd>0</Maxtijd>
+              <Spring>true</Spring>
+              <VerlengNiet>false</VerlengNiet>
+              <VerlengWel>false</VerlengWel>
+              <Vag4Mvt1 xsi:nil="true"></Vag4Mvt1>
+              <Vag4Mvt2 xsi:nil="true"></Vag4Mvt2>
+            </Detector>
+            <Detector>
+              <SignalGroupName />
+              <DetectorName />
+              <Moment1>150</Moment1>
+              <Moment2>300</Moment2>
+              <TDH1>15</TDH1>
+              <TDH2>15</TDH2>
+              <Maxtijd>0</Maxtijd>
+              <Spring>false</Spring>
+              <VerlengNiet>false</VerlengNiet>
+              <VerlengWel>false</VerlengWel>
+              <Vag4Mvt1 xsi:nil="true"></Vag4Mvt1>
+              <Vag4Mvt2 xsi:nil="true"></Vag4Mvt2>
+            </Detector>
+            <Detector>
+              <SignalGroupName />
+              <DetectorName />
+              <Moment1>0</Moment1>
+              <Moment2>0</Moment2>
+              <TDH1>25</TDH1>
+              <TDH2>25</TDH2>
+              <Maxtijd>0</Maxtijd>
+              <Spring>false</Spring>
+              <VerlengNiet>false</VerlengNiet>
+              <VerlengWel>false</VerlengWel>
+              <Vag4Mvt1>30</Vag4Mvt1>
+              <Vag4Mvt2>30</Vag4Mvt2>
+            </Detector>
+          </Detectoren>
+        </Snelheid>
+        <Snelheid>
+          <Name>80 km/u</Name>
+          <Detectoren>
+            <Detector>
+              <SignalGroupName />
+              <DetectorName />
+              <Moment1>0</Moment1>
+              <Moment2>0</Moment2>
+              <TDH1>0</TDH1>
+              <TDH2>0</TDH2>
+              <Maxtijd>80</Maxtijd>
+              <Spring>true</Spring>
+              <VerlengNiet>true</VerlengNiet>
+              <VerlengWel>false</VerlengWel>
+              <Vag4Mvt1 xsi:nil="true"></Vag4Mvt1>
+              <Vag4Mvt2 xsi:nil="true"></Vag4Mvt2>
+            </Detector>
+            <Detector>
+              <SignalGroupName />
+              <DetectorName />
+              <Moment1>0</Moment1>
+              <Moment2>0</Moment2>
+              <TDH1>1</TDH1>
+              <TDH2>1</TDH2>
+              <Maxtijd>100</Maxtijd>
+              <Spring>true</Spring>
+              <VerlengNiet>true</VerlengNiet>
+              <VerlengWel>false</VerlengWel>
+              <Vag4Mvt1 xsi:nil="true"></Vag4Mvt1>
+              <Vag4Mvt2 xsi:nil="true"></Vag4Mvt2>
+            </Detector>
+            <Detector>
+              <SignalGroupName />
+              <DetectorName />
+              <Moment1>120</Moment1>
+              <Moment2>200</Moment2>
+              <TDH1>10</TDH1>
+              <TDH2>0</TDH2>
+              <Maxtijd>200</Maxtijd>
+              <Spring>true</Spring>
+              <VerlengNiet>false</VerlengNiet>
+              <VerlengWel>false</VerlengWel>
+              <Vag4Mvt1 xsi:nil="true"></Vag4Mvt1>
+              <Vag4Mvt2 xsi:nil="true"></Vag4Mvt2>
+            </Detector>
+            <Detector>
+              <SignalGroupName />
+              <DetectorName />
+              <Moment1>150</Moment1>
+              <Moment2>300</Moment2>
+              <TDH1>15</TDH1>
+              <TDH2>5</TDH2>
+              <Maxtijd>0</Maxtijd>
+              <Spring>false</Spring>
+              <VerlengNiet>false</VerlengNiet>
+              <VerlengWel>false</VerlengWel>
+              <Vag4Mvt1 xsi:nil="true"></Vag4Mvt1>
+              <Vag4Mvt2 xsi:nil="true"></Vag4Mvt2>
+            </Detector>
+            <Detector>
+              <SignalGroupName />
+              <DetectorName />
+              <Moment1>200</Moment1>
+              <Moment2>400</Moment2>
+              <TDH1>15</TDH1>
+              <TDH2>5</TDH2>
+              <Maxtijd>0</Maxtijd>
+              <Spring>false</Spring>
+              <VerlengNiet>false</VerlengNiet>
+              <VerlengWel>false</VerlengWel>
+              <Vag4Mvt1 xsi:nil="true"></Vag4Mvt1>
+              <Vag4Mvt2 xsi:nil="true"></Vag4Mvt2>
+            </Detector>
+            <Detector>
+              <SignalGroupName />
+              <DetectorName />
+              <Moment1>0</Moment1>
+              <Moment2>0</Moment2>
+              <TDH1>20</TDH1>
+              <TDH2>20</TDH2>
+              <Maxtijd>0</Maxtijd>
+              <Spring>false</Spring>
+              <VerlengNiet>false</VerlengNiet>
+              <VerlengWel>false</VerlengWel>
+              <Vag4Mvt1>30</Vag4Mvt1>
+              <Vag4Mvt2>30</Vag4Mvt2>
+            </Detector>
+          </Detectoren>
+        </Snelheid>
+      </Snelheden>
+    </DynamischeHiaatDefault>
+    <DynamischeHiaatDefault>
+      <Name>GOM</Name>
+      <DefaultSnelheid>50 km/u</DefaultSnelheid>
+      <Snelheden>
+        <Snelheid>
+          <Name>40 km/u</Name>
+          <Detectoren>
+            <Detector>
+              <SignalGroupName />
+              <DetectorName />
+              <Moment1>0</Moment1>
+              <Moment2>0</Moment2>
+              <TDH1>0</TDH1>
+              <TDH2>0</TDH2>
+              <Maxtijd>85</Maxtijd>
+              <Spring>true</Spring>
+              <VerlengNiet>true</VerlengNiet>
+              <VerlengWel>false</VerlengWel>
+              <Vag4Mvt1 xsi:nil="true"></Vag4Mvt1>
+              <Vag4Mvt2 xsi:nil="true"></Vag4Mvt2>
+            </Detector>
+            <Detector>
+              <SignalGroupName />
+              <DetectorName />
+              <Moment1>85</Moment1>
+              <Moment2>150</Moment2>
+              <TDH1>7</TDH1>
+              <TDH2>0</TDH2>
+              <Maxtijd>150</Maxtijd>
+              <Spring>false</Spring>
+              <VerlengNiet>true</VerlengNiet>
+              <VerlengWel>false</VerlengWel>
+              <Vag4Mvt1 xsi:nil="true"></Vag4Mvt1>
+              <Vag4Mvt2 xsi:nil="true"></Vag4Mvt2>
+            </Detector>
+            <Detector>
+              <SignalGroupName />
+              <DetectorName />
+              <Moment1>150</Moment1>
+              <Moment2>260</Moment2>
+              <TDH1>15</TDH1>
+              <TDH2>4</TDH2>
+              <Maxtijd>0</Maxtijd>
+              <Spring>false</Spring>
+              <VerlengNiet>false</VerlengNiet>
+              <VerlengWel>false</VerlengWel>
+              <Vag4Mvt1 xsi:nil="true"></Vag4Mvt1>
+              <Vag4Mvt2 xsi:nil="true"></Vag4Mvt2>
+            </Detector>
+            <Detector>
+              <SignalGroupName />
+              <DetectorName />
+              <Moment1>0</Moment1>
+              <Moment2>0</Moment2>
+              <TDH1>15</TDH1>
+              <TDH2>15</TDH2>
+              <Maxtijd>0</Maxtijd>
+              <Spring>false</Spring>
+              <VerlengNiet>false</VerlengNiet>
+              <VerlengWel>false</VerlengWel>
+              <Vag4Mvt1>30</Vag4Mvt1>
+              <Vag4Mvt2>30</Vag4Mvt2>
+            </Detector>
+          </Detectoren>
+        </Snelheid>
+        <Snelheid>
+          <Name>50 km/u</Name>
+          <Detectoren>
+            <Detector>
+              <SignalGroupName />
+              <DetectorName />
+              <Moment1>0</Moment1>
+              <Moment2>0</Moment2>
+              <TDH1>0</TDH1>
+              <TDH2>0</TDH2>
+              <Maxtijd>85</Maxtijd>
+              <Spring>true</Spring>
+              <VerlengNiet>true</VerlengNiet>
+              <VerlengWel>false</VerlengWel>
+              <Vag4Mvt1 xsi:nil="true"></Vag4Mvt1>
+              <Vag4Mvt2 xsi:nil="true"></Vag4Mvt2>
+            </Detector>
+            <Detector>
+              <SignalGroupName />
+              <DetectorName />
+              <Moment1>85</Moment1>
+              <Moment2>150</Moment2>
+              <TDH1>7</TDH1>
+              <TDH2>0</TDH2>
+              <Maxtijd>150</Maxtijd>
+              <Spring>true</Spring>
+              <VerlengNiet>true</VerlengNiet>
+              <VerlengWel>false</VerlengWel>
+              <Vag4Mvt1 xsi:nil="true"></Vag4Mvt1>
+              <Vag4Mvt2 xsi:nil="true"></Vag4Mvt2>
+            </Detector>
+            <Detector>
+              <SignalGroupName />
+              <DetectorName />
+              <Moment1>150</Moment1>
+              <Moment2>260</Moment2>
+              <TDH1>15</TDH1>
+              <TDH2>4</TDH2>
+              <Maxtijd>0</Maxtijd>
+              <Spring>false</Spring>
+              <VerlengNiet>false</VerlengNiet>
+              <VerlengWel>false</VerlengWel>
+              <Vag4Mvt1 xsi:nil="true"></Vag4Mvt1>
+              <Vag4Mvt2 xsi:nil="true"></Vag4Mvt2>
+            </Detector>
+            <Detector>
+              <SignalGroupName />
+              <DetectorName />
+              <Moment1>0</Moment1>
+              <Moment2>0</Moment2>
+              <TDH1>25</TDH1>
+              <TDH2>25</TDH2>
+              <Maxtijd>0</Maxtijd>
+              <Spring>false</Spring>
+              <VerlengNiet>false</VerlengNiet>
+              <VerlengWel>false</VerlengWel>
+              <Vag4Mvt1>30</Vag4Mvt1>
+              <Vag4Mvt2>30</Vag4Mvt2>
+            </Detector>
+          </Detectoren>
+        </Snelheid>
+      </Snelheden>
+    </DynamischeHiaatDefault>
+  </Defaults>
+</DynamischeHiaatDefaults>

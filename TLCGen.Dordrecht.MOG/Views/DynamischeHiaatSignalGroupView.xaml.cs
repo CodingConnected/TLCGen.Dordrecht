@@ -13,14 +13,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace TLCGen.Dordrecht.MOG.Views
+namespace TLCGen.Dordrecht.DynamischeHiaat.Views
 {
     /// <summary>
-    /// Interaction logic for MOGSignalGroupView.xaml
+    /// Interaction logic for DynamischeHiaatSignalGroupView.xaml
     /// </summary>
-    public partial class MOGSignalGroupView : UserControl
+    public partial class DynamischeHiaatSignalGroupView : UserControl
     {
-        public MOGSignalGroupView()
+        public DynamischeHiaatSignalGroupView()
         {
             InitializeComponent();
         }

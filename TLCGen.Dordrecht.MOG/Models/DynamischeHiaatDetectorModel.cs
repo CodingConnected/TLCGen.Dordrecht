@@ -1,10 +1,10 @@
 ﻿using System;
 using TLCGen.Models;
 
-namespace TLCGen.Dordrecht.MOG.Models
+namespace TLCGen.Dordrecht.DynamischeHiaat.Models
 {
     [Serializable]
-    public class MOGDetectorModel
+    public class DynamischeHiaatDetectorModel
     {
         [RefersTo]
         public string SignalGroupName { get; set; }
@@ -19,7 +19,7 @@ namespace TLCGen.Dordrecht.MOG.Models
         public bool Spring { get; set; }
         public bool VerlengNiet { get; set; }
         public bool VerlengWel { get; set; }
-        public int Vag4Mvt1 { get; set; }
-        public int Vag4Mvt2 { get; set; }
+        public int? Vag4Mvt1 { get; set; }
+        public int? Vag4Mvt2 { get; set; }
     }
 }
