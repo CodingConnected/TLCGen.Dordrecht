@@ -176,7 +176,7 @@ namespace TLCGen.Dordrecht.DynamischeHiaat.ViewModels
             {
                 foreach(var mfc in DynamischeHiaatSignalGroups)
                 {
-                    var rem = mfc.DynamischeHiaatDetectoren.Where(x => message.RemovedDetectoren.Any(x2 => x2.Naam == x.DetectorName));
+                    var rem = mfc.DynamischeHiaatDetectoren.Where(x => message.RemovedDetectoren.Any(x2 => x2.Naam == x.DetectorName)).ToList();
                     foreach(var r in rem)
                     {
                         mfc.DynamischeHiaatDetectoren.Remove(r);

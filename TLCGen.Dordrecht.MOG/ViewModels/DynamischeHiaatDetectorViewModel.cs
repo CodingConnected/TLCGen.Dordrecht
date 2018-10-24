@@ -25,7 +25,10 @@ namespace TLCGen.Dordrecht.DynamischeHiaat.ViewModels
             get => Detector.Moment1;
             set
             {
-                Detector.Moment1 = value;
+                if (Detector.Moment1 != Detector.Moment2)
+                {
+                    Detector.Moment1 = value;
+                }
                 RaisePropertyChanged<object>(broadcast: true);
             }
         }
@@ -35,7 +38,10 @@ namespace TLCGen.Dordrecht.DynamischeHiaat.ViewModels
             get => Detector.Moment2;
             set
             {
-                Detector.Moment2 = value;
+                if(Detector.Moment1 != Detector.Moment2)
+                {
+                    Detector.Moment2 = value;
+                }
                 RaisePropertyChanged<object>(broadcast: true);
             }
         }
@@ -46,10 +52,8 @@ namespace TLCGen.Dordrecht.DynamischeHiaat.ViewModels
             set
             {
 
-                if (TDH2 < value + 1) Detector.TDH2 = value + 1;
                 Detector.TDH1 = value;
                 RaisePropertyChanged<object>(broadcast: true);
-                RaisePropertyChanged(nameof(TDH2));
             }
         }
 
@@ -58,7 +62,6 @@ namespace TLCGen.Dordrecht.DynamischeHiaat.ViewModels
             get => Detector.TDH2;
             set
             {
-                if (value < TDH1 + 1) value = TDH1 + 1;
                 Detector.TDH2 = value;
                 RaisePropertyChanged<object>(broadcast: true);
             }
