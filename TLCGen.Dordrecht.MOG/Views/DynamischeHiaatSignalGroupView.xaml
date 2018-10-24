@@ -34,7 +34,7 @@
             <ComboBox 
                 Grid.Row="1" Grid.Column="1"
                 ItemsSource="{Binding Path=SelectedDefaultSnelheden}" DisplayMemberPath="Name" SelectedValuePath="Name" SelectedValue="{Binding Path=Snelheid}" Margin="2" />
-            <Label Content="Kijken naar koplus" Grid.Row="2" />
+            <Label Content="Start op einde detectie koplus" Grid.Row="2" />
             <CheckBox 
                 Grid.Row="2" Grid.Column="1"
                 IsChecked="{Binding Path=KijkenNaarKoplus,UpdateSourceTrigger=PropertyChanged}" Margin="5" VerticalAlignment="Center" />

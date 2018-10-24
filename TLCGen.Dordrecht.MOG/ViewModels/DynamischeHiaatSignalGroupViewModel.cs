@@ -120,7 +120,7 @@ namespace TLCGen.Dordrecht.DynamischeHiaat.ViewModels
         }
 
         [Description("Hiaatmeting vanaf ED koplus")]
-        public bool KijkenNaarLus
+        public bool KijkenNaarKoplus
         {
             get => SignalGroup.KijkenNaarKoplus;
             set
