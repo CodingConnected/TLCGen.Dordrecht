@@ -25,10 +25,7 @@ namespace TLCGen.Dordrecht.DynamischeHiaat.ViewModels
             get => Detector.Moment1;
             set
             {
-                if (value == 0 || value != Detector.Moment2)
-                {
-                    Detector.Moment1 = value;
-                }
+                Detector.Moment1 = value;
                 RaisePropertyChanged<object>(broadcast: true);
             }
         }
@@ -38,10 +35,7 @@ namespace TLCGen.Dordrecht.DynamischeHiaat.ViewModels
             get => Detector.Moment2;
             set
             {
-                if (value == 0 || value != Detector.Moment1)
-                {
-                    Detector.Moment2 = value;
-                }
+                Detector.Moment2 = value;
                 RaisePropertyChanged<object>(broadcast: true);
             }
         }

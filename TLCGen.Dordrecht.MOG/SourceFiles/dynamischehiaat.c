@@ -45,7 +45,8 @@
 
    */
 
-
+static int eavl[FCMAX][5];
+static int detstor[FCMAX];
 
 void hiaattijden_verlenging(bool nietToepassen, bool vrijkomkop, count fc, ...)
 {
@@ -90,7 +91,6 @@ void hiaattijden_verlenging(bool nietToepassen, bool vrijkomkop, count fc, ...)
         tvag4_1 = va_arg(argpt, va_count);          /* ongebruikt                                                */ /*-*/
         tvag4_2 = va_arg(argpt, va_count);          /* ongebruikt                                                */ /*-*/
         sthiaat = va_arg(argpt, va_count);          /* ongebruikt                                                */ /*-*/
-		prmtdh  = va_arg(argpt, va_count);/*------------------------------------------------------------------------------------------------*/ /* nog verwijderen */
     
    
         #if defined (DL_type) && !defined (NO_DDFLUTTER) /* CCOL7 of hoger */
@@ -124,7 +124,6 @@ void hiaattijden_verlenging(bool nietToepassen, bool vrijkomkop, count fc, ...)
 	  tvag4_1 = va_arg(argpt, va_count);            /* lees veiligheidsgroen 1e timer                            */ /*-*/
 	  tvag4_2 = va_arg(argpt, va_count);            /* lees veiligheidsgroen 2e timer                            */ /*-*/
 	  sthiaat = va_arg(argpt, va_count);            /* lees array-nummer MM tbv opslaan statisch hiaat           */ /*-*/
-	  prmtdh  = va_arg(argpt, va_count);/*------------------------------------------------------------------------------------------------*/ /* nog verwijderen */
 
 
       /* tijdens R[] statische hiaten gebruiken tbv default TLCGen detectieopvang; det.storing resetten op TRG[] */ /*-*/
@@ -189,9 +188,8 @@ void hiaattijden_verlenging(bool nietToepassen, bool vrijkomkop, count fc, ...)
       }
 
       #ifndef AUTOMAAT /* nog verwijderen */
-	    PRM[prmtdh] = TDH_max[dpnr];  
 	    xyprintf(1,20+8,   " dp     tdh   t1   t2   h1   h2  max  tmmax");
-	    xyprintf(1,20+1+dpnr, "%s     %3d  %3d  %3d  %3d  %3d  %3d    %3d",D_code[dpnr],PRM[prmtdh],T_timer[t1],T_timer[t2],T_max[tdh1],T_max[tdh2],T_max[tmax],T_timer[tmax]);
+	    xyprintf(1,20+1+dpnr, "%s     %3d  %3d  %3d  %3d  %3d    %3d",D_code[dpnr],T_timer[t1],T_timer[t2],T_max[tdh1],T_max[tdh2],T_max[tmax],T_timer[tmax]);
 		xyprintf(50,20+8,"rijstr   eavl   verl");
 		xyprintf(50,20+8+rijstrook, "  %3d    %3d      %d",rijstrook,eavl[fc][rijstrook],verlengen[rijstrook]);
       #endif
@@ -215,13 +213,14 @@ void hiaattijden_verlenging(bool nietToepassen, bool vrijkomkop, count fc, ...)
           }
         }
       }
-      else {
+      else if ((tvag4_1 != NG) && (tvag4_2 != NG)) {
         RT[tvag4_1] = FALSE;
         RT[tvag4_2] = FALSE;
       }
       
-      if (!(RT[tvag4_1] || T[tvag4_1]) ||
-          !(RT[tvag4_2] || T[tvag4_2])   ) {            /* minder dan 2 voertuigen in dilemmazone */
+      if ((tvag4_1 != NG) && (tvag4_2 != NG) &&
+		  (!(RT[tvag4_1] || T[tvag4_1]) ||
+           !(RT[tvag4_2] || T[tvag4_2]))   ) {            /* minder dan 2 voertuigen in dilemmazone */
         YM[fc] &= ~BIT2;                                /* reset veiligheidsgroen                 */
       }
 	  /* einde afhandeling veiligheidsgroen */

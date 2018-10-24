@@ -228,6 +228,8 @@ namespace TLCGen.Dordrecht.DynamischeHiaat
         {
             switch (type)
             {
+                case CCOLCodeTypeEnum.RegCIncludes:
+                    return 115;
                 case CCOLCodeTypeEnum.RegCPostApplication:
                     return 115;
                 default:
@@ -244,6 +246,9 @@ namespace TLCGen.Dordrecht.DynamischeHiaat
 
             switch (type)
             {
+                case CCOLCodeTypeEnum.RegCIncludes:
+                        sb.AppendLine($"{ts}#include \"dynamischehiaat.c\"");
+                    return sb.ToString();
                 case CCOLCodeTypeEnum.RegCPostApplication:
                     foreach(var sg in sgs)
                     {
@@ -256,8 +261,8 @@ namespace TLCGen.Dordrecht.DynamischeHiaat
                             {
                                 var od = ofc.Detectoren.FirstOrDefault(x => x.Naam == dd.DetectorName);
                                 if (od == null || od.Rijstrook - 1 != i) continue;
-                                sb.Append($"{i + 1}, {_dpf}{od.Naam}, {_tpf}{dd.DetectorName}_1, {_tpf}{dd.DetectorName}_1, {_tpf}tdh_{dd.DetectorName}_1, {_tpf}tdh_{dd.DetectorName}_1, " +
-                                    $"{_tpf}{_tpf}max_{dd.DetectorName}, PRM[{_prmpf}springverleng_{dd.DetectorName}] & BIT0, PRM[{_prmpf}springverleng_{dd.DetectorName}] & BIT1, PRM[{_prmpf}springverleng_{dd.DetectorName}] & BIT2, {(dd.Vag4Mvt1.HasValue ? dd.Vag4Mvt1.Value.ToString() : "NG")}, {(dd.Vag4Mvt1.HasValue ? dd.Vag4Mvt1.Value.ToString() : "NG")}, {_mpf}TDH{_dpf}{dd.DetectorName}, ");
+                                sb.AppendLine($"{ts}{ts}{i + 1}, {_dpf}{od.Naam}, {_tpf}{dd.DetectorName}_1, {_tpf}{dd.DetectorName}_1, {_tpf}tdh_{dd.DetectorName}_1, {_tpf}tdh_{dd.DetectorName}_1, " +
+                                    $"{_tpf}max_{dd.DetectorName}, PRM[{_prmpf}springverleng_{dd.DetectorName}] & BIT0, PRM[{_prmpf}springverleng_{dd.DetectorName}] & BIT1, PRM[{_prmpf}springverleng_{dd.DetectorName}] & BIT2, {(dd.Vag4Mvt1.HasValue ? dd.Vag4Mvt1.Value.ToString() : "NG")}, {(dd.Vag4Mvt1.HasValue ? dd.Vag4Mvt1.Value.ToString() : "NG")}, {_mpf}TDH{_dpf}{dd.DetectorName}, ");
                             }
                         }
                         sb.AppendLine($"{ts}{ts}END);");
