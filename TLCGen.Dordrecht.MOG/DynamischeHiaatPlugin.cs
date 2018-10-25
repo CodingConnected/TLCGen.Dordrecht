@@ -195,6 +195,7 @@ namespace TLCGen.Dordrecht.DynamischeHiaat
                     _myElements.Add(new CCOLElement($"tdh_{d.DetectorName}_1", d.Moment1, CCOLElementTimeTypeEnum.TE_type, CCOLElementTypeEnum.Timer, $"Dynamische hiaattijden TDH 1 voor detector {d.DetectorName}"));
                     _myElements.Add(new CCOLElement($"tdh_{d.DetectorName}_2", d.Moment1, CCOLElementTimeTypeEnum.TE_type, CCOLElementTypeEnum.Timer, $"Dynamische hiaattijden TDH 2 voor detector {d.DetectorName}"));
                     _myElements.Add(new CCOLElement($"max_{d.DetectorName}", d.Maxtijd, CCOLElementTimeTypeEnum.TE_type, CCOLElementTypeEnum.Timer, $"Dynamische hiaattijden maximale tijd 2 voor detector {d.DetectorName}"));
+                    _myElements.Add(new CCOLElement($"verleng_{d.DetectorName}", CCOLElementTypeEnum.HulpElement, $"Instructie verlengen op detector {d.DetectorName} ongeacht dynamische hiaat"));
                     var schprm = 0;
                     if (d.Spring) schprm += 0x01;
                     if (d.VerlengWel) schprm += 0x02;
@@ -262,7 +263,7 @@ namespace TLCGen.Dordrecht.DynamischeHiaat
                                 var od = ofc.Detectoren.FirstOrDefault(x => x.Naam == dd.DetectorName);
                                 if (od == null || od.Rijstrook - 1 != i) continue;
                                 sb.AppendLine($"{ts}{ts}{i + 1}, {_dpf}{od.Naam}, {_tpf}{dd.DetectorName}_1, {_tpf}{dd.DetectorName}_1, {_tpf}tdh_{dd.DetectorName}_1, {_tpf}tdh_{dd.DetectorName}_1, " +
-                                    $"{_tpf}max_{dd.DetectorName}, PRM[{_prmpf}springverleng_{dd.DetectorName}] & BIT0, PRM[{_prmpf}springverleng_{dd.DetectorName}] & BIT1, PRM[{_prmpf}springverleng_{dd.DetectorName}] & BIT2, {(dd.Vag4Mvt1.HasValue ? dd.Vag4Mvt1.Value.ToString() : "NG")}, {(dd.Vag4Mvt1.HasValue ? dd.Vag4Mvt1.Value.ToString() : "NG")}, {_mpf}TDH{_dpf}{dd.DetectorName}, ");
+                                    $"{_tpf}max_{dd.DetectorName}, PRM[{_prmpf}springverleng_{dd.DetectorName}] & BIT0, PRM[{_prmpf}springverleng_{dd.DetectorName}] & BIT1, IH[{_hpf}verleng_{dd.DetectorName}] || PRM[{_prmpf}springverleng_{dd.DetectorName}] & BIT2, {(dd.Vag4Mvt1.HasValue ? dd.Vag4Mvt1.Value.ToString() : "NG")}, {(dd.Vag4Mvt1.HasValue ? dd.Vag4Mvt1.Value.ToString() : "NG")}, {_mpf}TDH{_dpf}{dd.DetectorName}, ");
                             }
                         }
                         sb.AppendLine($"{ts}{ts}END);");
