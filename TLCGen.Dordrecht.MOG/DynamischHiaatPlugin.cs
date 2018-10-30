@@ -3,34 +3,34 @@ using System.Linq;
 using System.Text;
 using System.Windows;
 using System.Xml;
-using TLCGen.Dordrecht.DynamischeHiaat.Models;
-using TLCGen.Dordrecht.DynamischeHiaat.ViewModels;
-using TLCGen.Dordrecht.DynamischeHiaat.Views;
+using TLCGen.Dordrecht.DynamischHiaat.Models;
+using TLCGen.Dordrecht.DynamischHiaat.ViewModels;
+using TLCGen.Dordrecht.DynamischHiaat.Views;
 using TLCGen.Extensions;
 using TLCGen.Generators.CCOL.CodeGeneration;
 using TLCGen.Helpers;
 using TLCGen.Models;
 using TLCGen.Plugins;
 
-namespace TLCGen.Dordrecht.DynamischeHiaat
+namespace TLCGen.Dordrecht.DynamischHiaat
 {
     [TLCGenTabItem(-1, TabItemTypeEnum.DetectieTab)]
     [TLCGenPlugin(TLCGenPluginElems.PlugMessaging | TLCGenPluginElems.TabControl | TLCGenPluginElems.XMLNodeWriter | TLCGenPluginElems.HasSettings)]
     [CCOLCodePieceGenerator]
-    public class DynamischeHiaatPlugin : CCOLCodePieceGeneratorBase, ITLCGenPlugMessaging, ITLCGenTabItem, ITLCGenXMLNodeWriter, ITLCGenHasSettings
+    public class DynamischHiaatPlugin : CCOLCodePieceGeneratorBase, ITLCGenPlugMessaging, ITLCGenTabItem, ITLCGenXMLNodeWriter, ITLCGenHasSettings
     {
         #region Fields
 
         private ControllerModel _controller;
-        private const string _myName = "Dynamische hiaat";
-        private DynamischeHiaatModel _myModel;
-        private DynamischeHiaatPluginTabViewModel _myTabViewModel;
+        private const string _myName = "Dynamisch hiaat";
+        private DynamischHiaatModel _myModel;
+        private DynamischHiaatPluginTabViewModel _myTabViewModel;
 
         #endregion Fields
 
         #region Properties
 
-        public DynamischeHiaatDefaultsModel MyDefaults { get; private set; }
+        public DynamischHiaatDefaultsModel MyDefaults { get; private set; }
         #endregion // Properties
 
         #region ITLCGen shared items
@@ -43,7 +43,7 @@ namespace TLCGen.Dordrecht.DynamischeHiaat
                 _controller = value;
                 if (_controller == null)
                 {
-                    _myModel = new DynamischeHiaatModel();
+                    _myModel = new DynamischHiaatModel();
                     _myTabViewModel.Controller = null;
                     _myTabViewModel.Model = _myModel;
                 }
@@ -85,7 +85,7 @@ namespace TLCGen.Dordrecht.DynamischeHiaat
                 if (_ContentDataTemplate == null)
                 {
                     _ContentDataTemplate = new DataTemplate();
-                    var tab = new FrameworkElementFactory(typeof(DynamischeHiaatPluginTabView));
+                    var tab = new FrameworkElementFactory(typeof(DynamischHiaatPluginTabView));
                     tab.SetValue(FrameworkElement.DataContextProperty, _myTabViewModel);
                     _ContentDataTemplate.VisualTree = tab;
                 }
@@ -117,9 +117,9 @@ namespace TLCGen.Dordrecht.DynamischeHiaat
 
         public void OnSelected()
         {
-            if(_myTabViewModel.SelectedDynamischeHiaatSignalGroup == null && _myTabViewModel.DynamischeHiaatSignalGroups.Any())
+            if(_myTabViewModel.SelectedDynamischHiaatSignalGroup == null && _myTabViewModel.DynamischHiaatSignalGroups.Any())
             {
-                _myTabViewModel.SelectedDynamischeHiaatSignalGroup = _myTabViewModel.DynamischeHiaatSignalGroups[0];
+                _myTabViewModel.SelectedDynamischHiaatSignalGroup = _myTabViewModel.DynamischHiaatSignalGroups[0];
             }
         }
 
@@ -138,16 +138,16 @@ namespace TLCGen.Dordrecht.DynamischeHiaat
 
             foreach (XmlNode node in document.FirstChild.ChildNodes)
             {
-                if (node.LocalName == "DynamischeHiaat")
+                if (node.LocalName == "DynamischHiaat")
                 {
-                    _myModel = XmlNodeConverter.ConvertNode<DynamischeHiaatModel>(node);
+                    _myModel = XmlNodeConverter.ConvertNode<DynamischHiaatModel>(node);
                     break;
                 }
             }
 
             if (_myModel == null)
             {
-                _myModel = new DynamischeHiaatModel();
+                _myModel = new DynamischHiaatModel();
             }
             _myTabViewModel.Model = _myModel;
             _myTabViewModel.RaisePropertyChanged("");
@@ -167,8 +167,8 @@ namespace TLCGen.Dordrecht.DynamischeHiaat
         public void LoadSettings()
         {
             MyDefaults =
-                TLCGenSerialization.DeSerializeData<DynamischeHiaatDefaultsModel>(
-                    ResourceReader.GetResourceTextFile("TLCGen.Dordrecht.DynamischeHiaat.Settings.DynamischeHiaatDefaults.xml", this));
+                TLCGenSerialization.DeSerializeData<DynamischHiaatDefaultsModel>(
+                    ResourceReader.GetResourceTextFile("TLCGen.Dordrecht.DynamischHiaat.Settings.DynamischHiaatDefaults.xml", this));
         }
 
         public void SaveSettings()
@@ -184,10 +184,11 @@ namespace TLCGen.Dordrecht.DynamischeHiaat
         {
             _myElements = new List<CCOLElement>();
 
-            foreach(var msg in _myModel.SignaalGroepenMetDynamischeHiaat.Where(x => x.HasDynamischeHiaat))
+            foreach(var msg in _myModel.SignaalGroepenMetDynamischHiaat.Where(x => x.HasDynamischHiaat))
             {
                 _myElements.Add(new CCOLElement($"geendynhiaat{msg.SignalGroupName}", CCOLElementTypeEnum.HulpElement, "Tegenhouden toepassen dynamische hiaattijden voor fase " + msg.SignalGroupName));
-                foreach(var d in msg.DynamischeHiaatDetectoren)
+                _myElements.Add(new CCOLElement($"edkop_{msg.SignalGroupName}", msg.KijkenNaarKoplus ? 1 : 0, CCOLElementTimeTypeEnum.SCH_type, CCOLElementTypeEnum.Schakelaar, $"Start timers dynamische hiaat fase {msg.SignalGroupName} op einde detectie koplus"));
+                foreach(var d in msg.DynamischHiaatDetectoren)
                 {
                     _myElements.Add(new CCOLElement($"TDH{_dpf}{d.DetectorName}", CCOLElementTypeEnum.GeheugenElement, $"Onthouden oorspronkelijke TDH voor detector {d.DetectorName}"));
                     _myElements.Add(new CCOLElement($"{d.DetectorName}_1", d.Moment1, CCOLElementTimeTypeEnum.TE_type, CCOLElementTypeEnum.Timer, $"Dynamische hiaattijden moment 1 voor detector {d.DetectorName}"));
@@ -242,27 +243,27 @@ namespace TLCGen.Dordrecht.DynamischeHiaat
         {
             StringBuilder sb = new StringBuilder();
 
-            var sgs = _myModel.SignaalGroepenMetDynamischeHiaat.Where(x => x.HasDynamischeHiaat);
+            var sgs = _myModel.SignaalGroepenMetDynamischHiaat.Where(x => x.HasDynamischHiaat);
             if (!sgs.Any()) return "";
 
             switch (type)
             {
                 case CCOLCodeTypeEnum.RegCIncludes:
-                        sb.AppendLine($"{ts}#include \"dynamischehiaat.c\"");
+                        sb.AppendLine($"{ts}#include \"dynamischhiaat.c\"");
                     return sb.ToString();
                 case CCOLCodeTypeEnum.RegCPostApplication:
                     foreach(var sg in sgs)
                     {
                         var ofc = c.Fasen.FirstOrDefault(x => x.Naam == sg.SignalGroupName);
                         if (ofc == null) continue;
-                        sb.AppendLine($"{ts}hiaattijden_verlenging({(sg.KijkenNaarKoplus ? "TRUE" : "FALSE")}, {_fcpf}{sg.SignalGroupName}, IH[{_hpf}geendynhiaat{sg.SignalGroupName}],");
+                        sb.AppendLine($"{ts}hiaattijden_verlenging(IH[{_hpf}geendynhiaat{sg.SignalGroupName}], SCH[{_schpf}edkop_{sg.SignalGroupName}], {_fcpf}{sg.SignalGroupName}, ");
                         for (int i = 0; i < ofc.AantalRijstroken; i++)
                         {
-                            foreach(var dd in sg.DynamischeHiaatDetectoren)
+                            foreach(var dd in sg.DynamischHiaatDetectoren)
                             {
                                 var od = ofc.Detectoren.FirstOrDefault(x => x.Naam == dd.DetectorName);
                                 if (od == null || od.Rijstrook - 1 != i) continue;
-                                sb.AppendLine($"{ts}{ts}{i + 1}, {_dpf}{od.Naam}, {_tpf}{dd.DetectorName}_1, {_tpf}{dd.DetectorName}_1, {_tpf}tdh_{dd.DetectorName}_1, {_tpf}tdh_{dd.DetectorName}_1, " +
+                                sb.AppendLine($"{ts}{ts}{i + 1}, {_dpf}{od.Naam}, {_tpf}{dd.DetectorName}_1, {_tpf}{dd.DetectorName}_2, {_tpf}tdh_{dd.DetectorName}_1, {_tpf}tdh_{dd.DetectorName}_2, " +
                                     $"{_tpf}max_{dd.DetectorName}, PRM[{_prmpf}springverleng_{dd.DetectorName}] & BIT0, PRM[{_prmpf}springverleng_{dd.DetectorName}] & BIT1, IH[{_hpf}verleng_{dd.DetectorName}] || PRM[{_prmpf}springverleng_{dd.DetectorName}] & BIT2, {(dd.Vag4Mvt1.HasValue ? dd.Vag4Mvt1.Value.ToString() : "NG")}, {(dd.Vag4Mvt1.HasValue ? dd.Vag4Mvt1.Value.ToString() : "NG")}, {_mpf}TDH{_dpf}{dd.DetectorName}, ");
                             }
                         }
@@ -276,10 +277,10 @@ namespace TLCGen.Dordrecht.DynamischeHiaat
 
         public override List<string> GetSourcesToCopy()
         {
-            if (!_myModel.SignaalGroepenMetDynamischeHiaat.Any(x => x.HasDynamischeHiaat)) return null;
+            if (!_myModel.SignaalGroepenMetDynamischHiaat.Any(x => x.HasDynamischHiaat)) return null;
             return new List<string>
             {
-                "dynamischehiaat.c"
+                "dynamischhiaat.c"
             };
         }
         
@@ -294,30 +295,30 @@ namespace TLCGen.Dordrecht.DynamischeHiaat
                 foreach (var fc in Controller.Fasen)
                 {
                     if (fc.Type == TLCGen.Models.Enumerations.FaseTypeEnum.Auto &&
-                        _myTabViewModel.DynamischeHiaatSignalGroups.All(x => x.SignalGroupName != fc.Naam))
+                        _myTabViewModel.DynamischHiaatSignalGroups.All(x => x.SignalGroupName != fc.Naam))
                     {
-                        var msg = new DynamischeHiaatSignalGroupViewModel(new DynamischeHiaatSignalGroupModel { SignalGroupName = fc.Naam });
-                        msg.SelectedDefault = MyDefaults.Defaults.FirstOrDefault(x => x.Name == _myModel.TypeDynamischeHiaat);
+                        var msg = new DynamischHiaatSignalGroupViewModel(new DynamischHiaatSignalGroupModel { SignalGroupName = fc.Naam });
+                        msg.SelectedDefault = MyDefaults.Defaults.FirstOrDefault(x => x.Name == _myModel.TypeDynamischHiaat);
                         if (string.IsNullOrEmpty(msg.Snelheid) || !msg.SelectedDefault.Snelheden.Any(x => x.Name == msg.Snelheid))
                         {
                             msg.Snelheid = msg.SelectedDefault.DefaultSnelheid;
                         }
-                        _myTabViewModel.DynamischeHiaatSignalGroups.Add(msg);
+                        _myTabViewModel.DynamischHiaatSignalGroups.Add(msg);
                     }
                 }
-                var rems = new List<DynamischeHiaatSignalGroupViewModel>();
-                foreach (var fc in _myTabViewModel.DynamischeHiaatSignalGroups)
+                var rems = new List<DynamischHiaatSignalGroupViewModel>();
+                foreach (var fc in _myTabViewModel.DynamischHiaatSignalGroups)
                 {
-                    if (Controller.Fasen.All(x => x.Naam != fc.SignalGroupName))
+                    if (Controller.Fasen.All(x => x.Naam != fc.SignalGroupName) || Controller.Fasen.Any(x => x.Naam == fc.SignalGroupName && x.Type != TLCGen.Models.Enumerations.FaseTypeEnum.Auto))
                     {
                         rems.Add(fc);
                     }
                 }
                 foreach (var sg in rems)
                 {
-                    _myTabViewModel.DynamischeHiaatSignalGroups.Remove(sg);
+                    _myTabViewModel.DynamischHiaatSignalGroups.Remove(sg);
                 }
-                _myTabViewModel.DynamischeHiaatSignalGroups.BubbleSort();
+                _myTabViewModel.DynamischHiaatSignalGroups.BubbleSort();
                 _myTabViewModel.RaisePropertyChanged("");
             }
         }
@@ -326,9 +327,9 @@ namespace TLCGen.Dordrecht.DynamischeHiaat
 
         #region Constructor
 
-        public DynamischeHiaatPlugin()
+        public DynamischHiaatPlugin()
         {
-            _myTabViewModel = new DynamischeHiaatPluginTabViewModel(this);
+            _myTabViewModel = new DynamischHiaatPluginTabViewModel(this);
         }
 
         #endregion //Constructor

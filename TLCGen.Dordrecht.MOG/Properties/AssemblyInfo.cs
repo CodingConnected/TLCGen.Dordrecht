@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("TLCGen.Dordrecht.DynamischeHiaat")]
+[assembly: AssemblyTitle("TLCGen.Dordrecht.DynamischHiaat")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("CodingConnected e.U.")]
-[assembly: AssemblyProduct("TLCGen.Dordrecht.DynamischeHiaat")]
+[assembly: AssemblyProduct("TLCGen.Dordrecht.DynamischHiaat")]
 [assembly: AssemblyCopyright("Copyright © CodingConnected e.U. 2018")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]

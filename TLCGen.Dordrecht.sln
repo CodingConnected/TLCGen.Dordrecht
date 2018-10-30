@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27703.2018
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TLCGen.Dordrecht.MOG", "TLCGen.Dordrecht.MOG\TLCGen.Dordrecht.MOG.csproj", "{470913DE-034E-4502-AAC8-E62AAB880BD1}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TLCGen.Dordrecht.DynamischeHiaat", "TLCGen.Dordrecht.MOG\TLCGen.Dordrecht.DynamischeHiaat.csproj", "{470913DE-034E-4502-AAC8-E62AAB880BD1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

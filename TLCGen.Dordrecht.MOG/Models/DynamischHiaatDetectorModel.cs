@@ -1,10 +1,10 @@
 ﻿using System;
 using TLCGen.Models;
 
-namespace TLCGen.Dordrecht.DynamischeHiaat.Models
+namespace TLCGen.Dordrecht.DynamischHiaat.Models
 {
     [Serializable]
-    public class DynamischeHiaatDetectorModel
+    public class DynamischHiaatDetectorModel
     {
         [RefersTo]
         public string SignalGroupName { get; set; }

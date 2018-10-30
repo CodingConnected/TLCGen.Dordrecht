@@ -5,28 +5,28 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Windows.Input;
-using TLCGen.Dordrecht.DynamischeHiaat.Models;
+using TLCGen.Dordrecht.DynamischHiaat.Models;
 using TLCGen.Extensions;
 using TLCGen.Helpers;
 using RelayCommand = GalaSoft.MvvmLight.CommandWpf.RelayCommand;
 
-namespace TLCGen.Dordrecht.DynamischeHiaat.ViewModels
+namespace TLCGen.Dordrecht.DynamischHiaat.ViewModels
 {
-    internal class DynamischeHiaatSignalGroupViewModel : ViewModelBase, IViewModelWithItem, IComparable
+    internal class DynamischHiaatSignalGroupViewModel : ViewModelBase, IViewModelWithItem, IComparable
     {
         #region Fields
 
-        private ObservableCollectionAroundList<DynamischeHiaatDetectorViewModel, DynamischeHiaatDetectorModel> _DynamischeHiaatDetectoren;
+        private ObservableCollectionAroundList<DynamischHiaatDetectorViewModel, DynamischHiaatDetectorModel> _DynamischHiaatDetectoren;
 
         #endregion // Fields
 
         #region Properties
 
         [Browsable(false)]
-        public DynamischeHiaatSignalGroupModel SignalGroup { get; }
+        public DynamischHiaatSignalGroupModel SignalGroup { get; }
 
         [Browsable(false)]
-        public DynamischeHiaatDefaultModel SelectedDefault
+        public DynamischHiaatDefaultModel SelectedDefault
         {
             get => _selectedDefault;
             set
@@ -43,19 +43,19 @@ namespace TLCGen.Dordrecht.DynamischeHiaat.ViewModels
             }
         }
 
-        public List<DynamischeHiaatSpeedDefaultModel> SelectedDefaultSnelheden { get; private set; }
+        public List<DynamischHiaatSpeedDefaultModel> SelectedDefaultSnelheden { get; private set; }
 
         [Browsable(false)]
-        public ObservableCollectionAroundList<DynamischeHiaatDetectorViewModel, DynamischeHiaatDetectorModel> DynamischeHiaatDetectoren => _DynamischeHiaatDetectoren ?? (_DynamischeHiaatDetectoren = new ObservableCollectionAroundList<DynamischeHiaatDetectorViewModel, DynamischeHiaatDetectorModel>(SignalGroup.DynamischeHiaatDetectoren));
+        public ObservableCollectionAroundList<DynamischHiaatDetectorViewModel, DynamischHiaatDetectorModel> DynamischHiaatDetectoren => _DynamischHiaatDetectoren ?? (_DynamischHiaatDetectoren = new ObservableCollectionAroundList<DynamischHiaatDetectorViewModel, DynamischHiaatDetectorModel>(SignalGroup.DynamischHiaatDetectoren));
 
-        private AddRemoveItemsManager<DynamischeHiaatDetectorViewModel, DynamischeHiaatDetectorModel, string> _DynamischeHiaatDetectorenManager;
-        private DynamischeHiaatDefaultModel _selectedDefault;
+        private AddRemoveItemsManager<DynamischHiaatDetectorViewModel, DynamischHiaatDetectorModel, string> _DynamischHiaatDetectorenManager;
+        private DynamischHiaatDefaultModel _selectedDefault;
 
         [Browsable(false)]
-        public AddRemoveItemsManager<DynamischeHiaatDetectorViewModel, DynamischeHiaatDetectorModel, string> DynamischeHiaatDetectorenManager =>
-            _DynamischeHiaatDetectorenManager ?? (_DynamischeHiaatDetectorenManager = new AddRemoveItemsManager<DynamischeHiaatDetectorViewModel, DynamischeHiaatDetectorModel, string>(
-            DynamischeHiaatDetectoren,
-            x => new DynamischeHiaatDetectorViewModel(new DynamischeHiaatDetectorModel { DetectorName = x, SignalGroupName = SignalGroup.SignalGroupName }),
+        public AddRemoveItemsManager<DynamischHiaatDetectorViewModel, DynamischHiaatDetectorModel, string> DynamischHiaatDetectorenManager =>
+            _DynamischHiaatDetectorenManager ?? (_DynamischHiaatDetectorenManager = new AddRemoveItemsManager<DynamischHiaatDetectorViewModel, DynamischHiaatDetectorModel, string>(
+            DynamischHiaatDetectoren,
+            x => new DynamischHiaatDetectorViewModel(new DynamischHiaatDetectorModel { DetectorName = x, SignalGroupName = SignalGroup.SignalGroupName }),
             (x, y) => x.Detector.DetectorName == y
             ));
 
@@ -71,12 +71,12 @@ namespace TLCGen.Dordrecht.DynamischeHiaat.ViewModels
         }
 
         [Browsable(false)]
-        public bool HasDynamischeHiaat
+        public bool HasDynamischHiaat
         {
-            get => SignalGroup.HasDynamischeHiaat;
+            get => SignalGroup.HasDynamischHiaat;
             set
             {
-                SignalGroup.HasDynamischeHiaat = value;
+                SignalGroup.HasDynamischHiaat = value;
                 if (value)
                 {
                     var fc = DataAccess.TLCGenControllerDataProvider.Default.Controller.Fasen.FirstOrDefault(x => x.Naam == SignalGroupName);
@@ -84,25 +84,25 @@ namespace TLCGen.Dordrecht.DynamischeHiaat.ViewModels
                     {
                         foreach (var d in fc.Detectoren)
                         {
-                            if (!DynamischeHiaatDetectoren.Any(x => x.DetectorName == d.Naam) &&
+                            if (!DynamischHiaatDetectoren.Any(x => x.DetectorName == d.Naam) &&
                                 (d.Type == TLCGen.Models.Enumerations.DetectorTypeEnum.Kop ||
                                  d.Type == TLCGen.Models.Enumerations.DetectorTypeEnum.Lang ||
                                  d.Type == TLCGen.Models.Enumerations.DetectorTypeEnum.Verweg))
                             {
-                                DynamischeHiaatDetectoren.Add(new DynamischeHiaatDetectorViewModel(new DynamischeHiaatDetectorModel
+                                DynamischHiaatDetectoren.Add(new DynamischHiaatDetectorViewModel(new DynamischHiaatDetectorModel
                                 {
                                     DetectorName = d.Naam,
                                     SignalGroupName = SignalGroupName
                                 }));
                             }
                         }
-                        DynamischeHiaatDetectoren.BubbleSort();
+                        DynamischHiaatDetectoren.BubbleSort();
                         ApplySnelheidsDefaultsToDetectoren(Snelheid);
                     }
                 }
                 else
                 {
-                    DynamischeHiaatDetectoren.RemoveAll();
+                    DynamischHiaatDetectoren.RemoveAll();
                 }
                 RaisePropertyChanged();
             }
@@ -149,7 +149,7 @@ namespace TLCGen.Dordrecht.DynamischeHiaat.ViewModels
 
         public int CompareTo(object obj)
         {
-            return SignalGroup.SignalGroupName.CompareTo(((DynamischeHiaatSignalGroupViewModel)obj).SignalGroup.SignalGroupName);
+            return SignalGroup.SignalGroupName.CompareTo(((DynamischHiaatSignalGroupViewModel)obj).SignalGroup.SignalGroupName);
         }
 
         #endregion // IComparable
@@ -158,7 +158,7 @@ namespace TLCGen.Dordrecht.DynamischeHiaat.ViewModels
 
         public void UpdateSelectableDetectoren(IEnumerable<string> detectoren)
         {
-            DynamischeHiaatDetectorenManager.UpdateSelectables(detectoren);
+            DynamischHiaatDetectorenManager.UpdateSelectables(detectoren);
         }
 
         #endregion // Public Methods
@@ -173,9 +173,9 @@ namespace TLCGen.Dordrecht.DynamischeHiaat.ViewModels
                 var sd = SelectedDefault.Snelheden.FirstOrDefault(x => x.Name == snelheid);
                 if (sd != null)
                 {
-                    for (int d = 0; d < DynamischeHiaatDetectoren.Count; d++)
+                    for (int d = 0; d < DynamischHiaatDetectoren.Count; d++)
                     {
-                        var od = DataAccess.TLCGenControllerDataProvider.Default.Controller.Fasen.SelectMany(x => x.Detectoren).FirstOrDefault(x => x.Naam == DynamischeHiaatDetectoren[d].DetectorName);
+                        var od = DataAccess.TLCGenControllerDataProvider.Default.Controller.Fasen.SelectMany(x => x.Detectoren).FirstOrDefault(x => x.Naam == DynamischHiaatDetectoren[d].DetectorName);
                         if(od != null && od.Rijstrook.HasValue && od.Rijstrook > 0 && od.Rijstrook <= 10)
                         {
                             dr[od.Rijstrook.Value - 1]++;
@@ -186,16 +186,16 @@ namespace TLCGen.Dordrecht.DynamischeHiaat.ViewModels
                         }
                         if (dr[od.Rijstrook.Value - 1] > 0 && (dr[od.Rijstrook.Value - 1] - 1) < sd.Detectoren.Count)
                         {
-                            DynamischeHiaatDetectoren[d].Moment1 = sd.Detectoren[dr[od.Rijstrook.Value - 1] - 1].Moment1;
-                            DynamischeHiaatDetectoren[d].Moment2 = sd.Detectoren[dr[od.Rijstrook.Value - 1] - 1].Moment2;
-                            DynamischeHiaatDetectoren[d].TDH1 = sd.Detectoren[dr[od.Rijstrook.Value - 1] - 1].TDH1;
-                            DynamischeHiaatDetectoren[d].TDH2 = sd.Detectoren[dr[od.Rijstrook.Value - 1] - 1].TDH2;
-                            DynamischeHiaatDetectoren[d].Maxtijd = sd.Detectoren[dr[od.Rijstrook.Value - 1] - 1].Maxtijd;
-                            DynamischeHiaatDetectoren[d].Spring = sd.Detectoren[dr[od.Rijstrook.Value - 1] - 1].Spring;
-                            DynamischeHiaatDetectoren[d].VerlengNiet = sd.Detectoren[dr[od.Rijstrook.Value - 1] - 1].VerlengNiet;
-                            DynamischeHiaatDetectoren[d].VerlengWel = sd.Detectoren[dr[od.Rijstrook.Value - 1] - 1].VerlengWel;
-                            DynamischeHiaatDetectoren[d].Vag4Mvt1 = sd.Detectoren[dr[od.Rijstrook.Value - 1] - 1].Vag4Mvt1;
-                            DynamischeHiaatDetectoren[d].Vag4Mvt2 = sd.Detectoren[dr[od.Rijstrook.Value - 1] - 1].Vag4Mvt2;
+                            DynamischHiaatDetectoren[d].Moment1 = sd.Detectoren[dr[od.Rijstrook.Value - 1] - 1].Moment1;
+                            DynamischHiaatDetectoren[d].Moment2 = sd.Detectoren[dr[od.Rijstrook.Value - 1] - 1].Moment2;
+                            DynamischHiaatDetectoren[d].TDH1 = sd.Detectoren[dr[od.Rijstrook.Value - 1] - 1].TDH1;
+                            DynamischHiaatDetectoren[d].TDH2 = sd.Detectoren[dr[od.Rijstrook.Value - 1] - 1].TDH2;
+                            DynamischHiaatDetectoren[d].Maxtijd = sd.Detectoren[dr[od.Rijstrook.Value - 1] - 1].Maxtijd;
+                            DynamischHiaatDetectoren[d].Spring = sd.Detectoren[dr[od.Rijstrook.Value - 1] - 1].Spring;
+                            DynamischHiaatDetectoren[d].VerlengNiet = sd.Detectoren[dr[od.Rijstrook.Value - 1] - 1].VerlengNiet;
+                            DynamischHiaatDetectoren[d].VerlengWel = sd.Detectoren[dr[od.Rijstrook.Value - 1] - 1].VerlengWel;
+                            DynamischHiaatDetectoren[d].Vag4Mvt1 = sd.Detectoren[dr[od.Rijstrook.Value - 1] - 1].Vag4Mvt1;
+                            DynamischHiaatDetectoren[d].Vag4Mvt2 = sd.Detectoren[dr[od.Rijstrook.Value - 1] - 1].Vag4Mvt2;
                         }
                     }
                 }
@@ -206,7 +206,7 @@ namespace TLCGen.Dordrecht.DynamischeHiaat.ViewModels
 
         #region Constructor
 
-        public DynamischeHiaatSignalGroupViewModel(DynamischeHiaatSignalGroupModel signalGroup)
+        public DynamischHiaatSignalGroupViewModel(DynamischHiaatSignalGroupModel signalGroup)
         {
             SignalGroup = signalGroup;
         }

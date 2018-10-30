@@ -2,12 +2,12 @@
 using System;
 using System.ComponentModel;
 using System.Text.RegularExpressions;
-using TLCGen.Dordrecht.DynamischeHiaat.Models;
+using TLCGen.Dordrecht.DynamischHiaat.Models;
 using TLCGen.Helpers;
 
-namespace TLCGen.Dordrecht.DynamischeHiaat.ViewModels
+namespace TLCGen.Dordrecht.DynamischHiaat.ViewModels
 {
-    internal class DynamischeHiaatDetectorViewModel : ViewModelBase, IViewModelWithItem, IComparable
+    internal class DynamischHiaatDetectorViewModel : ViewModelBase, IViewModelWithItem, IComparable
     {
         #region Fields
         #endregion // Fields
@@ -15,7 +15,7 @@ namespace TLCGen.Dordrecht.DynamischeHiaat.ViewModels
         #region Properties
 
         [Browsable(false)]
-        public DynamischeHiaatDetectorModel Detector { get; }
+        public DynamischHiaatDetectorModel Detector { get; }
 
         [Browsable(false)]
         public string DetectorName => Detector.DetectorName;
@@ -137,7 +137,7 @@ namespace TLCGen.Dordrecht.DynamischeHiaat.ViewModels
         public int CompareTo(object obj)
         {
             var d1 = Regex.Replace(Detector.DetectorName, $@"^{Detector.SignalGroupName}", "");
-            var d2 = Regex.Replace(((DynamischeHiaatDetectorViewModel)obj).Detector.DetectorName, $@"^{Detector.SignalGroupName}", "");
+            var d2 = Regex.Replace(((DynamischHiaatDetectorViewModel)obj).Detector.DetectorName, $@"^{Detector.SignalGroupName}", "");
             if (d1.Length < d2.Length) d1 = d1.PadLeft(d2.Length, '0');
             if (d2.Length < d1.Length) d2 = d2.PadLeft(d1.Length, '0');
             return string.CompareOrdinal(d1, d2);
@@ -147,7 +147,7 @@ namespace TLCGen.Dordrecht.DynamischeHiaat.ViewModels
 
         #region Constructor
 
-        public DynamischeHiaatDetectorViewModel(DynamischeHiaatDetectorModel detector)
+        public DynamischHiaatDetectorViewModel(DynamischHiaatDetectorModel detector)
         {
             Detector = detector;
         }
