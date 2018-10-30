@@ -24,5 +24,10 @@ namespace TLCGen.Dordrecht.DynamischHiaat.Views
         {
             InitializeComponent();
         }
+
+        private void Hyperlink_Click(object sender, RoutedEventArgs e)
+        {
+            System.Diagnostics.Process.Start("https://www.codingconnected.eu/tlcgenwiki/");
+        }
     }
 }

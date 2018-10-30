@@ -45,7 +45,19 @@
                 <RowDefinition Height="*" />
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
-            <Label Content="Dynamische hiaattijden detector instellingen" />
+            <StackPanel Orientation="Horizontal">
+                <Label Content="Dynamische hiaattijden detector instellingen" />
+                <ct:InfoElement>
+                    <ct:InfoElement.InfoPopup>
+                        <TextBlock>
+Voor meer informatie over de betekenis en werking van onderstaande<LineBreak />
+instellingen wordt verwezen naar <Hyperlink Click="Hyperlink_Click">de wiki van TLCGen</Hyperlink>.<LineBreak />
+De meegeleverde sourcefile "dynamischhiaat.c" bevat ook een uitleg.
+                            
+                        </TextBlock>
+                    </ct:InfoElement.InfoPopup>
+                </ct:InfoElement>
+            </StackPanel>
             <ct:SpecialDataGrid Margin="2" ItemsSource="{Binding Path=DynamischHiaatDetectoren}"
                                 SelectedItem="{Binding Path=DynamischHiaatDetectorenManager.SelectedItem,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
                                 Name="DynamischHiaatSignalGroupsDG" Grid.Row="1"

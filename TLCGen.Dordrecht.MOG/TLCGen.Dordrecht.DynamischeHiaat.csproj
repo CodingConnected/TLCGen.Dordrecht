@@ -7,8 +7,8 @@
     <ProjectGuid>{470913DE-034E-4502-AAC8-E62AAB880BD1}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>TLCGen.Dordrecht.DynamischeHiaat</RootNamespace>
-    <AssemblyName>TLCGen.Dordrecht.DynamischeHiaat</AssemblyName>
+    <RootNamespace>TLCGen.Dordrecht.DynamischHiaat</RootNamespace>
+    <AssemblyName>TLCGen.Dordrecht.DynamischHiaat</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -107,7 +107,7 @@
   <PropertyGroup>
     <PostBuildEvent>rmdir /s /q "$(TargetDir)Test"
 mkdir "$(TargetDir)Test"
-move TLCGen.Dordrecht.DynamischeHiaat.dll "$(TargetDir)Test"
-move TLCGen.Dordrecht.DynamischeHiaat.pdb "$(TargetDir)Test"</PostBuildEvent>
+move TLCGen.Dordrecht.DynamischHiaat.dll "$(TargetDir)Test"
+move TLCGen.Dordrecht.DynamischHiaat.pdb "$(TargetDir)Test"</PostBuildEvent>
   </PropertyGroup>
 </Project>
