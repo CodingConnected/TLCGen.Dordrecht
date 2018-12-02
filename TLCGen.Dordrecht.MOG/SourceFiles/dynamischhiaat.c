@@ -1,60 +1,106 @@
-﻿/*
-     Vijf zinnen over GOM en IVER'18 met verwijzing naar bronnen (Verkeerskunde voor GOM, G-C rapport / IVER website voor IVER'18)
+﻿
+/* 
+   BESTAND:   dynamischhiaat.c
+   TLCGEN :   0.3.6 en hoger
+
+   ****************************** Versie commentaar ***********************************
+   *
+   * Versie   Datum        Ontwerper   Commentaar
+   * 1.0.0    25- 1-2018   Kzw         Basisversie i.o.v. IVER
+   * 2.0.0    15-12-2018   ddo         Diverse aanpassingen voor stedelijk gebruik
+   *
+   ************************************************************************************
+
+   Zowel bij de IVER detectieconfiguratie uit 2018 (IVER'18) als bij Groen Op Maat (GOM) wordt gebruik
+   gemaakt van dynamische hiaattijden. Met onderstaande code kunnen beide detectieconfiguraties worden bediend.
+   
+   Dynamische hiaattijden zijn bedoeld om op efficiënte wijze groen te verlengen, waarbij aan de 'voorkant'
+   minder vastgroen en geen koplusmaximum* nodig zijn, en aan de 'achterkant' gebruik gemaakt kan worden
+   van een deel van de geeltijd. Daarbij wordt gebruik gemaakt van een specifieke detectie configuratie. 
+
+   De methodiek is als GOM ontwikkeld door Luuk Misdom en IT&T (nu Vialis). Voor meer informatie, zie het Handboek 
+   Verleerslichtenregelingen 2014 p. 294, Verkeerskunde nummer 06-09, of de website van IT&T:
+   - http://www.it-t.nl/wp-content/uploads/Vk06_09-00-art-Groen-op-maat-LR.pdf
+   - http://www.it-t.nl/wp-content/uploads/Groen-op-Maat-configuraties.pdf
+   
+   In augustus 2018 heeft de IVER een (nieuwe) detectieconfiguratie gepubliceerd die ook gebruik maakt van 
+   dynamische hiattijden. Zie voor de rapportage "Onderzoek detectieconfiguratie en signaalgroepafhandeling" 
+   van Goudappel Coffeng (in opdracht van IVER):
+   - https://www.crow.nl/thema-s/verkeersmanagement/iver onder 'Downloads'.
+   
+   De implementatie van dynamische hiaattijden voor de TLCGen en de effecten ervan zijn nog NIET getest met 
+   intergroen of met gekoppelde regelingen. De huidige implementatie is een eerste versie kan daarom nog 
+   onverwachte effecten geven; zorgvuldig testen wordt aanbevolen.
+
+   --
+
+   Onderstaande functie 'hiaattijden_verlenging()' gaat er van uit dat de functie 'meetkriterium_prm_va_arg()' of
+   'meetkriterium2_prm_va_arg()' (als er niet opgedrempeld mag worden) wordt gebruikt voor het normaal bepalen van het meetkriterium.
+   
+   De argumenten met een enkel streepje zijn de originele argumenten uit de IVER'18 voorbeeldcode van Goudappel Coffeng (Willem Kinzel).
+   De argumenten met een dubbel streepje zijn toegevoegde argumenten tbv het gemeentelijk wegennet (Dick den Ouden). 
+   In de code zijn de wijzigingen aangegeven met / *-* / bij de functie of bij de aanpassing.
+   
+   De code is vermoedelijk nog voor verbetering vatbaar; feedback wordt gewaardeerd en kan naar d.denouden@ll-t.nl 
+   
+   -- 1e argument: boolean tbv bepaling functie wel/niet gebruiken voor deze fase, uitgevoerd als hulpelement (bijvoorbeeld bij brugopening)
+                   Indien waarde == TRUE wordt de functie niet doorlopen.
+   -- 2e argument: boolean tbv detectie vrijkomen koplus (tellers starten op ED[koplus] ipv op SG[fc]), uitgevoerd als schakelaar
+                   Indien waarde == TRUE worden de timers gestart bij het voor het eerst afvallen van de koplus.
+   -- 3e argument: array-nummer memory element meetkriterium
+   -  4e argument: array-nummer signaalgroep 
+   Dan per detectielus de volgende argumenten:
+   -  rijstrook 1, 2, 3 of 4. Deze waarde wordt gebruikt voor het al dan niet opdrempelen. Als er wel opgedrempeld mag worden, dan altijd '1' invullen.
+   -  array-nummer detectie-element
+   -  array-nummer tijdelement - moment 1
+   -  array-nummer tijdelement - moment 2
+   -  array-nummer tijdelement - hiaattijd 1
+   -  array-nummer tijdelement - hiaattijd 2
+   -  array-nummer tijdelement - maximum groentijd
+   -  springvoorwaarde  (op start groen, als er geen hiaatmeting meer is op deze en de stroomafwaartse lussen, meteen naar de 2e/lagere hiaattijd overgaan)
+   -  verlengvoorwaarde (op start groen, als er geen hiaatmeting meer is op deze en de stroomafwaartse lussen, de verlengfunctie uitschakelen             )
+   -- extra verlengvoorwaarde (booleaanse conditie: bij TRUE altijd verlengen op deze lus; bijvoorbeeld bij aanwezigheid deelconflict (G[fc11] && G[fc36]))
+   -- array-nummer veiligheidsgroen rijtimer 1 (t.b.v. CORRECTIE op veiligheidsgroen uit stdfunc; de functie uit stdfunc dus OOK inschakelen              )
+   -- array-nummer veiligheidsgroen rijtimer 2
+   -- array-nummer memory element t.b.v. bewaren oorspronkelijke (statische) hiaattijd
+   
+   De springvoorwaarde, verlengvoorwaarde en extra verlengvoorwaarde worden bitsgewijs opgeslagen in een parameter en zijn dus op straat te wijzigen.
+   Het aktief worden extra verlengvoorwaarde kan tevens worden aangestuurd vanuit het regelprogramma via een hulpelement (IH[] = G[fc1] && G[fc2]).
+   
+   De functie wordt niet doorlopen wanneer een detectiestoring is geconstateerd. In dat geval wordt de statische hiaattijd gebruikt en dient de gebruiker
+   een eigen detectiestoringsopvang te programmeren, of die uit de TLCGen te gebruiken.
+
+
+                           1e argument          2e argument     3e arg. 4e arg.
+   hiaattijden_verlenging(IH[hgeendynhiaat05], SCH[schedkop_05], mmk05,  fc05, 
+
+   rijstr,  det,  moment1,  moment2,       tdh1,       tdh2,  maxtijd,      springvoorwaarde,     verlengvoorwaarde,                   extra verlengvoorwaarde, tvag4_mvt_1,  tvag4_mvt_2, stat.tdh, 
+        1, d051,   t051_1,   t051_2, ttdh_051_1, ttdh_051_2, tmax_051, PRM[prmsvdet051]&BIT0, PRM[prmsvdet051]&BIT1, IH[hverleng_051] || PRM[prmsvdet051]&BIT2,          NG,           NG, mTDHd051, 
+        1, d053,   t053_1,   t053_2, ttdh_053_1, ttdh_053_2, tmax_053, PRM[prmsvdet053]&BIT0, PRM[prmsvdet053]&BIT1, IH[hverleng_053] || PRM[prmsvdet053]&BIT2,          NG,           NG, mTDHd053, 
+        1, d055,   t055_1,   t055_2, ttdh_055_1, ttdh_055_2, tmax_055, PRM[prmsvdet055]&BIT0, PRM[prmsvdet055]&BIT1, IH[hverleng_055] || PRM[prmsvdet055]&BIT2,          NG,           NG, mTDHd055, 
+        1, d057,   t057_1,   t057_2, ttdh_057_1, ttdh_057_2, tmax_057, PRM[prmsvdet057]&BIT0, PRM[prmsvdet057]&BIT1, IH[hverleng_057] || PRM[prmsvdet057]&BIT2,          30,           30, mTDHd057, 
+        2, d052,   t052_1,   t052_2, ttdh_052_1, ttdh_052_2, tmax_052, PRM[prmsvdet052]&BIT0, PRM[prmsvdet052]&BIT1, IH[hverleng_052] || PRM[prmsvdet052]&BIT2,          NG,           NG, mTDHd052, 
+        2, d054,   t054_1,   t054_2, ttdh_054_1, ttdh_054_2, tmax_054, PRM[prmsvdet054]&BIT0, PRM[prmsvdet054]&BIT1, IH[hverleng_054] || PRM[prmsvdet054]&BIT2,          NG,           NG, mTDHd054, 
+        2, d056,   t056_1,   t056_2, ttdh_056_1, ttdh_056_2, tmax_056, PRM[prmsvdet056]&BIT0, PRM[prmsvdet056]&BIT1, IH[hverleng_056] || PRM[prmsvdet056]&BIT2,          NG,           NG, mTDHd056, 
+        2, d058,   t058_1,   t058_2, ttdh_058_1, ttdh_058_2, tmax_058, PRM[prmsvdet058]&BIT0, PRM[prmsvdet058]&BIT1, IH[hverleng_058] || PRM[prmsvdet058]&BIT2,          30,           30, mTDHd058, 
+        END);
+
 */
+#ifndef AUTOMAAT   /* nog verwijderen */
+   /* definitie tbv voorkomen compiler warning */
+   extern int xyprintf(int x, int y, const char * szFormat, ...);
+#endif
 
-  /* Onderstaande functie 'hiaattijden_verlenging()' gaat er van uit dat de functie 'meetkriterium_prm_va_arg()' of
-     'meetkriterium2_prm_va_arg()' (als er niet opgedrempeld mag worden) wordt gebruikt voor het normaal bepalen van het meetkriterium
-	 De argumenten met een enkel streepje zijn de originele argumenten uit de IVER'18 voorbeeldcode van Willem Kinzel.
-	 De argumenten met een dubbel streepje zijn toegevoegde argumenten tbv Dordrecht, aangepast door Dick den Ouden. In de code zijn de wijzigingen
-	 aangegeven met / *-* / bij de functie of bij de aanpassing.
-	 -- 1e argument: boolean tbv detectie vrijkomen koplus (tellers starten op ED[koplus] ipv op SG[fc])
-     -  2e argument: array-nummer signaalgroep
-     Dan per detectielus de volgende argumenten:
-     -  rijstrook 1, 2, 3 of 4. Deze waarde wordt gebruikt voor het al dan niet opdrempelen. Als er wel opgedrempeld mag worden, dan altijd '1' invullen.
-     -  array-nummer detectie-element
-     -  array-nummer tijdelement - moment 1
-     -  array-nummer tijdelement - moment 2
-     -  array-nummer tijdelement - hiaattijd 1
-     -  array-nummer tijdelement - hiaattijd 2
-     -  array-nummer tijdelement - maximum groentijd
-     -  springvoorwaarde  (op start groen, als er geen hiaatmeting meer is op deze en de stroomafwaartse lussen, meteen naar de 2e/lagere hiaattijd overgaan)
-     -  verlengvoorwaarde (op start groen, als er geen hiaatmeting meer is op deze en de stroomafwaartse lussen, de verlengfunctie uitschakelen             )
-	 -- extra verlengvoorwaarde (booleaanse conditie: bij TRUE altijd verlengen op deze lus; bijvoorbeeld bij aanwezigheid deelconflict (G[fc11] && G[fc36]))
-	 -- array-nummer veiligheidsgroen rijtimer 1 (t.b.v. CORRECTIE op veiligheidsgroen uit stdfunc; de functie uit stdfunc dus OOK inschakelen              )
-	 -- array-nummer veiligheidsgroen rijtimer 2
-	 -- array-nummer memory element t.b.v. bewaren oorspronkelijke (statische) hiaattijd
-
-
-        / * vrijkomkoplus, fc    * /
-  hiaattijden_verlenging(1, fc11,                                                  
-	                 / *  rijstr,  det,  moment1,  moment2,         tdh1,         tdh2,    maxtijd, s, v,        extra verl.vw,  tvag4_mvt_1,  tvag4_mvt_2,  stat.tdh, * /
-	                           1, d111, td1101_1, td1101_2, ttdh_d1101_1, ttdh_d1101_2, tmax_d1101, 1, 1,                    0,           NG,           NG, meTDHd111,  
-                               1, d113, td1103_1, td1103_2, ttdh_d1103_1, ttdh_d1103_2, tmax_d1103, 1, 1, (G[fc11] && G[fc36]),           NG,           NG, meTDHd113,  
-                               1, d115, td1105_1, td1105_2, ttdh_d1105_1, ttdh_d1105_2, tmax_d1105, 1, 1,                    0,           NG,           NG, meTDHd115,  
-                               1, d117, td1107_1, td1107_2, ttdh_d1107_1, ttdh_d1107_2, tmax_d1107, 1, 1,                    0, tvag4_11_1_1, tvag4_11_1_2, meTDHd117,  
-																										          	   									    
-                               2, d112, td1102_1, td1102_2, ttdh_d1102_1, ttdh_d1102_2, tmax_d1102, 1, 1,                    0,           NG,           NG, meTDHd112,  
-                               2, d114, td1104_1, td1104_2, ttdh_d1104_1, ttdh_d1104_2, tmax_d1104, 1, 1, (G[fc11] && G[fc36]),           NG,           NG, meTDHd114,  
-                               2, d116, td1106_1, td1106_2, ttdh_d1106_1, ttdh_d1106_2, tmax_d1106, 1, 1,                    0,           NG,           NG, meTDHd116,  
-							   2, d118, td1108_1, td1108_2, ttdh_d1108_1, ttdh_d1108_2, tmax_d1108, 1, 1,                    0, tvag4_11_2_1, tvag4_11_2_2, meTDHd118,  
-							   
-							   END);
-
-
-
-
-   */
 
 static int eavl[FCMAX][5];
 static int detstor[FCMAX];
 
-void hiaattijden_verlenging(bool nietToepassen, bool vrijkomkop, count fc, ...)
+void hiaattijden_verlenging(bool nietToepassen, bool vrijkomkop, count mmk, count fc, ...)
 {
   va_list argpt;                                    /* variabele argumentenlijst                                 */
   count dpnr;                                       /* arraynummer detectie-element                              */
   count t1, t2, tdh1, tdh2, tmax, tvag4_1, tvag4_2; /* arraynummers tijdelementen                                */
   count sthiaat;                                    /* arraynummer MM tbv bewaren statische hiaattijd            */
-  count prmtdh;/*------------------------------------------------------------------------------------------------*/ /* nog verwijderen */
   count rijstrook_old = -1;                         /* vorige rijstrooknummer                                    */
   count rijstrook;                                  /* rijstrooknummer                                           */
   count max_rijstrook = 1;                          /* hoogste rijstrooknummer                                   */
@@ -93,15 +139,15 @@ void hiaattijden_verlenging(bool nietToepassen, bool vrijkomkop, count fc, ...)
         sthiaat = va_arg(argpt, va_count);          /* ongebruikt                                                */ /*-*/
     
    
-        #if defined (DL_type) && !defined (NO_DDFLUTTER) /* CCOL7 of hoger */
+        #if defined (DL_type) && !defined (NO_DDFLUTTER) /* CCOL7 of hoger */  
           if (CIF_IS[dpnr] >= CIF_DET_STORING /*|| OG[dpnr]*/ || BG[dpnr] || FL[dpnr])   detstor[fc] |= TRUE;
         #else
           if (CIF_IS[dpnr] >= CIF_DET_STORING /*|| OG[dpnr]*/ || BG[dpnr])               detstor[fc] |= TRUE;
         #endif
 	    
         #ifndef AUTOMAAT  /* nog verwijderen */
-          xyprintf(72,20+8,"detstor");
-          xyprintf(72,20+8+rijstrook, "     %d",detstor[fc]);
+          xyprintf(80,20+8,"detstor");
+          xyprintf(80,20+8+rijstrook, "     %d",detstor[fc]);
         #endif
       }
     } while (rijstrook>=0);
@@ -126,13 +172,13 @@ void hiaattijden_verlenging(bool nietToepassen, bool vrijkomkop, count fc, ...)
 	  sthiaat = va_arg(argpt, va_count);            /* lees array-nummer MM tbv opslaan statisch hiaat           */ /*-*/
 
 
-      /* tijdens R[] statische hiaten gebruiken tbv default TLCGen detectieopvang; det.storing resetten op TRG[] */ /*-*/
-      if (SRA[fc]) {
-          MM[sthiaat] = TDH_max[dpnr];              /* bewaar oorspronkelijke statische hiaattijd in MM          */
-      }											    
-      if (SGL[fc]) {							    
-          TDH_max[dpnr] = MM[sthiaat];              /* zet oorspronkelijke statische hiaattijden terug           */
-      }
+ //     /* tijdens R[] statische hiaten gebruiken tbv default TLCGen detectieopvang; det.storing resetten op TRG[] */ /*-*/
+ //     if (SRA[fc]) {
+ //         MM[sthiaat] = TDH_max[dpnr];              /* bewaar oorspronkelijke statische hiaattijd in MM          */
+ //     }											    
+ //     if (SGL[fc]) {							    
+ //         TDH_max[dpnr] = MM[sthiaat];              /* zet oorspronkelijke statische hiaattijden terug           */
+ //     }
 
       max_rijstrook = rijstrook;                    /* onthoud hoogste rijstrooknummer                           */
       if (rijstrook != rijstrook_old) {
@@ -188,10 +234,10 @@ void hiaattijden_verlenging(bool nietToepassen, bool vrijkomkop, count fc, ...)
       }
 
       #ifndef AUTOMAAT /* nog verwijderen */
-	    xyprintf(1,20+8,   " dp     tdh   t1   t2   h1   h2  max  tmmax");
-	    xyprintf(1,20+1+dpnr, "%s     %3d  %3d  %3d  %3d  %3d    %3d",D_code[dpnr],T_timer[t1],T_timer[t2],T_max[tdh1],T_max[tdh2],T_max[tmax],T_timer[tmax]);
-		xyprintf(50,20+8,"rijstr   eavl   verl");
-		xyprintf(50,20+8+rijstrook, "  %3d    %3d      %d",rijstrook,eavl[fc][rijstrook],verlengen[rijstrook]);
+	    xyprintf(1,20+0,   " dp     tdh   t1   t2   h1   h2  max  tmmax");
+	    xyprintf(1,20+1+dpnr, "%s     %3d  %3d  %3d  %3d  %3d    %3d   %3d",D_code[dpnr],TDH_max[dpnr],T_timer[t1],T_timer[t2],T_max[tdh1],T_max[tdh2],T_max[tmax],T_timer[tmax]);
+		xyprintf(50,20+8,"rijstr   eavl   verl   MMmk");
+		xyprintf(50,20+8+rijstrook, "  %3d    %3d      %d  %5d",rijstrook,eavl[fc][rijstrook],verlengen[rijstrook],MM[mmk]);
       #endif
 
       /* afhandeling veiligheidsgroen, opgenomen in hoofdfunctie */ /*-*/
@@ -238,16 +284,16 @@ void hiaattijden_verlenging(bool nietToepassen, bool vrijkomkop, count fc, ...)
     {
       switch (rijstrook) {
         case 1 :
-          MK[fc] &= ~(BIT1|BIT2);    /* reset meetkriterium rijstrook 1 */
+          MM[mmk] &= ~(BIT1|BIT2);    /* reset meetkriterium rijstrook 1 */  /*-*/ /* MM[mmk] ipv MK[fc] */
           break;
         case 2 :
-          MK[fc] &= ~(BIT4|BIT5);    /* reset meetkriterium rijstrook 2 */
+          MM[mmk] &= ~(BIT4|BIT5);    /* reset meetkriterium rijstrook 2 */  /*-*/
           break;
         case 3 :
-          MK[fc] &= ~(BIT6|BIT7);    /* reset meetkriterium rijstrook 3 */
+          MM[mmk] &= ~(BIT6|BIT7);    /* reset meetkriterium rijstrook 3 */  /*-*/
           break;
         case 4 :
-          MK[fc] &= ~(BIT8|BIT9);    /* reset meetkriterium rijstrook 4 */
+          MM[mmk] &= ~(BIT8|BIT9);    /* reset meetkriterium rijstrook 4 */  /*-*/
           break;
       }
     }
