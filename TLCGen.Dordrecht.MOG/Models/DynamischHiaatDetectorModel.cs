@@ -19,6 +19,7 @@ namespace TLCGen.Dordrecht.DynamischHiaat.Models
         public bool Spring { get; set; }
         public bool VerlengNiet { get; set; }
         public bool VerlengWel { get; set; }
+        public bool MeteenHiaatAftellen { get; set; }
         public int? Vag4Mvt1 { get; set; }
         public int? Vag4Mvt2 { get; set; }
     }

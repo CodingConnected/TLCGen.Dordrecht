@@ -11,6 +11,7 @@ namespace TLCGen.Dordrecht.DynamischHiaat.Models
         [RefersTo]
         public string SignalGroupName { get; set; }
         public bool HasDynamischHiaat { get; set; }
+        public bool Opdrempelen { get; set; }
 
         public string Snelheid { get; set; }
         public bool KijkenNaarKoplus { get; set; }

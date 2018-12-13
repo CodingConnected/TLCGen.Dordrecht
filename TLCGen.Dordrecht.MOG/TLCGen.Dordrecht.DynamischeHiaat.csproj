@@ -63,7 +63,7 @@
     </Reference>
     <Reference Include="TLCGen.Dependencies, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\TLCGen2\TLCGen.Dependencies\TLCGen.Dependencies\bin\Debug\TLCGen.Dependencies.dll</HintPath>
+      <HintPath>..\..\TLCGen\TLCGen.Dependencies\TLCGen.Dependencies\bin\Release\TLCGen.Dependencies.dll</HintPath>
     </Reference>
     <Reference Include="TLCGen.Generators.CCOL">
       <HintPath>..\..\TLCGen\TLCGen\bin\Release\Plugins\TLCGen.Generators.CCOL.dll</HintPath>

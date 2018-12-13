@@ -101,6 +101,16 @@ namespace TLCGen.Dordrecht.DynamischHiaat.ViewModels
             }
         }
 
+        public bool MeteenHiaatAftellen
+        {
+            get => Detector.MeteenHiaatAftellen;
+            set
+            {
+                Detector.MeteenHiaatAftellen = value;
+                RaisePropertyChanged<object>(broadcast: true);
+            }
+        }
+
         public int? Vag4Mvt1
         {
             get => Detector.Vag4Mvt1;
