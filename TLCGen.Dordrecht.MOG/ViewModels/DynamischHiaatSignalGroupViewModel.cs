@@ -104,7 +104,17 @@ namespace TLCGen.Dordrecht.DynamischHiaat.ViewModels
                 {
                     DynamischHiaatDetectoren.RemoveAll();
                 }
-                RaisePropertyChanged();
+                RaisePropertyChanged<object>(broadcast: true);
+            }
+        }
+
+        public bool Opdrempelen
+        {
+            get => SignalGroup.Opdrempelen;
+            set
+            {
+                SignalGroup.Opdrempelen = value;
+                RaisePropertyChanged<object>(broadcast: true);
             }
         }
 
@@ -115,7 +125,7 @@ namespace TLCGen.Dordrecht.DynamischHiaat.ViewModels
             {
                 SignalGroup.Snelheid = value;
                 ApplySnelheidsDefaultsToDetectoren(value);
-                RaisePropertyChanged();
+                RaisePropertyChanged<object>(broadcast: true);
             }
         }
 

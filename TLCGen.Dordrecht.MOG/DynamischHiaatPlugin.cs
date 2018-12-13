@@ -186,22 +186,25 @@ namespace TLCGen.Dordrecht.DynamischHiaat
 
             foreach(var msg in _myModel.SignaalGroepenMetDynamischHiaat.Where(x => x.HasDynamischHiaat))
             {
+                _myElements.Add(new CCOLElement($"opdrempelen{msg.SignalGroupName}", CCOLElementTypeEnum.HulpElement, $"Opdrempelen toepassen voor fase {msg.SignalGroupName}"));
+                _myElements.Add(new CCOLElement($"opdrempelen{msg.SignalGroupName}", msg.Opdrempelen ? 1 : 0, CCOLElementTimeTypeEnum.SCH_type, CCOLElementTypeEnum.Schakelaar, $"Opdrempelen toepassen voor fase {msg.SignalGroupName}"));
                 _myElements.Add(new CCOLElement($"geendynhiaat{msg.SignalGroupName}", CCOLElementTypeEnum.HulpElement, "Tegenhouden toepassen dynamische hiaattijden voor fase " + msg.SignalGroupName));
                 _myElements.Add(new CCOLElement($"edkop_{msg.SignalGroupName}", msg.KijkenNaarKoplus ? 1 : 0, CCOLElementTimeTypeEnum.SCH_type, CCOLElementTypeEnum.Schakelaar, $"Start timers dynamische hiaat fase {msg.SignalGroupName} op einde detectie koplus"));
                 foreach(var d in msg.DynamischHiaatDetectoren)
                 {
                     _myElements.Add(new CCOLElement($"TDH{_dpf}{d.DetectorName}", CCOLElementTypeEnum.GeheugenElement, $"Onthouden oorspronkelijke TDH voor detector {d.DetectorName}"));
                     _myElements.Add(new CCOLElement($"{d.DetectorName}_1", d.Moment1, CCOLElementTimeTypeEnum.TE_type, CCOLElementTypeEnum.Timer, $"Dynamische hiaattijden moment 1 voor detector {d.DetectorName}"));
-                    _myElements.Add(new CCOLElement($"{d.DetectorName}_2", d.Moment1, CCOLElementTimeTypeEnum.TE_type, CCOLElementTypeEnum.Timer, $"Dynamische hiaattijden moment 2 voor detector {d.DetectorName}"));
-                    _myElements.Add(new CCOLElement($"tdh_{d.DetectorName}_1", d.Moment1, CCOLElementTimeTypeEnum.TE_type, CCOLElementTypeEnum.Timer, $"Dynamische hiaattijden TDH 1 voor detector {d.DetectorName}"));
-                    _myElements.Add(new CCOLElement($"tdh_{d.DetectorName}_2", d.Moment1, CCOLElementTimeTypeEnum.TE_type, CCOLElementTypeEnum.Timer, $"Dynamische hiaattijden TDH 2 voor detector {d.DetectorName}"));
+                    _myElements.Add(new CCOLElement($"{d.DetectorName}_2", d.Moment2, CCOLElementTimeTypeEnum.TE_type, CCOLElementTypeEnum.Timer, $"Dynamische hiaattijden moment 2 voor detector {d.DetectorName}"));
+                    _myElements.Add(new CCOLElement($"tdh_{d.DetectorName}_1", d.TDH1, CCOLElementTimeTypeEnum.TE_type, CCOLElementTypeEnum.Timer, $"Dynamische hiaattijden TDH 1 voor detector {d.DetectorName}"));
+                    _myElements.Add(new CCOLElement($"tdh_{d.DetectorName}_2", d.TDH2, CCOLElementTimeTypeEnum.TE_type, CCOLElementTypeEnum.Timer, $"Dynamische hiaattijden TDH 2 voor detector {d.DetectorName}"));
                     _myElements.Add(new CCOLElement($"max_{d.DetectorName}", d.Maxtijd, CCOLElementTimeTypeEnum.TE_type, CCOLElementTypeEnum.Timer, $"Dynamische hiaattijden maximale tijd 2 voor detector {d.DetectorName}"));
                     _myElements.Add(new CCOLElement($"verleng_{d.DetectorName}", CCOLElementTypeEnum.HulpElement, $"Instructie verlengen op detector {d.DetectorName} ongeacht dynamische hiaat"));
                     var schprm = 0;
                     if (d.Spring) schprm += 0x01;
-                    if (d.VerlengWel) schprm += 0x02;
-                    if (d.VerlengNiet) schprm += 0x04;
-                    _myElements.Add(new CCOLElement($"springverleng_{d.DetectorName}", schprm, CCOLElementTimeTypeEnum.None, CCOLElementTypeEnum.Parameter, $"Dynamische hiaattijden maximale tijd 2 voor detector {d.DetectorName}"));
+                    if (d.VerlengNiet) schprm += 0x02;
+                    if (d.VerlengWel) schprm += 0x04;
+                    if (d.MeteenHiaatAftellen) schprm += 0x08;
+                    _myElements.Add(new CCOLElement($"sv{_dpf}{d.DetectorName}", schprm, CCOLElementTimeTypeEnum.None, CCOLElementTypeEnum.Parameter, $"Dynamische hiaattijden maximale tijd 2 voor detector {d.DetectorName}"));
                     if (d.Vag4Mvt1.HasValue || d.Vag4Mvt2.HasValue)
                     {
                         var dd = c.Fasen.SelectMany(x => x.Detectoren).FirstOrDefault(x2 => x2.Naam == d.DetectorName);
@@ -232,6 +235,8 @@ namespace TLCGen.Dordrecht.DynamischHiaat
             {
                 case CCOLCodeTypeEnum.RegCIncludes:
                     return 115;
+                case CCOLCodeTypeEnum.RegCPreApplication:
+                    return 115;
                 case CCOLCodeTypeEnum.RegCPostApplication:
                     return 115;
                 default:
@@ -249,8 +254,18 @@ namespace TLCGen.Dordrecht.DynamischHiaat
             switch (type)
             {
                 case CCOLCodeTypeEnum.RegCIncludes:
-                        sb.AppendLine($"{ts}#include \"dynamischhiaat.c\"");
+                    sb.AppendLine($"{ts}#include \"dynamischhiaat.c\"");
                     return sb.ToString();
+
+                case CCOLCodeTypeEnum.RegCPreApplication:
+                    sb.AppendLine($"{ts}/* Instellen basis waarde hulpelementen opdrempelen t.b.v. dynamische hiaattijden.");
+                    sb.AppendLine($"{ts}   Dit hulpelement kan in gebruikers code worden gebruikt voor eigen aansturing. */");
+                    foreach (var sg in sgs)
+                    {
+                        sb.AppendLine($"{ts}IH[{_hpf}opdrempelen{sg.SignalGroupName}] = SCH[{_schpf}opdrempelen{sg.SignalGroupName}];");
+                    }
+                    return sb.ToString();
+
                 case CCOLCodeTypeEnum.RegCPostApplication:
                     foreach(var sg in sgs)
                     {
@@ -263,8 +278,8 @@ namespace TLCGen.Dordrecht.DynamischHiaat
                             {
                                 var od = ofc.Detectoren.FirstOrDefault(x => x.Naam == dd.DetectorName);
                                 if (od == null || od.Rijstrook - 1 != i) continue;
-                                sb.AppendLine($"{ts}{ts}{i + 1}, {_dpf}{od.Naam}, {_tpf}{dd.DetectorName}_1, {_tpf}{dd.DetectorName}_2, {_tpf}tdh_{dd.DetectorName}_1, {_tpf}tdh_{dd.DetectorName}_2, " +
-                                    $"{_tpf}max_{dd.DetectorName}, PRM[{_prmpf}springverleng_{dd.DetectorName}] & BIT0, PRM[{_prmpf}springverleng_{dd.DetectorName}] & BIT1, IH[{_hpf}verleng_{dd.DetectorName}] || PRM[{_prmpf}springverleng_{dd.DetectorName}] & BIT2, {(dd.Vag4Mvt1.HasValue ? dd.Vag4Mvt1.Value.ToString() : "NG")}, {(dd.Vag4Mvt1.HasValue ? dd.Vag4Mvt1.Value.ToString() : "NG")}, {_mpf}TDH{_dpf}{dd.DetectorName}, ");
+                                sb.AppendLine($"{ts}{ts}IH[{_hpf}opdrempelen{sg.SignalGroupName}] ? 1 : {i + 1}, {_dpf}{od.Naam}, {_tpf}{dd.DetectorName}_1, {_tpf}{dd.DetectorName}_2, {_tpf}tdh_{dd.DetectorName}_1, {_tpf}tdh_{dd.DetectorName}_2, " +
+                                    $"{_tpf}max_{dd.DetectorName}, PRM[{_prmpf}sv{_dpf}{dd.DetectorName}]&BIT0, PRM[{_prmpf}sv{_dpf}{dd.DetectorName}]&BIT1, PRM[{_prmpf}sv{_dpf}{dd.DetectorName}]&BIT2 || IH[{_hpf}verleng_{dd.DetectorName}], PRM[{_prmpf}sv{_dpf}{dd.DetectorName}]&BIT3,  {(dd.Vag4Mvt1.HasValue ? dd.Vag4Mvt1.Value.ToString() : "NG")}, {(dd.Vag4Mvt1.HasValue ? dd.Vag4Mvt1.Value.ToString() : "NG")}, {_mpf}TDH{_dpf}{dd.DetectorName}, ");
                             }
                         }
                         sb.AppendLine($"{ts}{ts}END);");

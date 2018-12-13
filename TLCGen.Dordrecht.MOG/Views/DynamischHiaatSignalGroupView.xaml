@@ -78,6 +78,7 @@ De meegeleverde sourcefile "dynamischhiaat.c" bevat ook een uitleg.
                     <DataGridCheckBoxColumn Header="Spring" Binding="{Binding Path=Spring,UpdateSourceTrigger=PropertyChanged}" />
                     <DataGridCheckBoxColumn Header="Verleng niet" Binding="{Binding Path=VerlengNiet,UpdateSourceTrigger=PropertyChanged}" />
                     <DataGridCheckBoxColumn Header="Verleng wel" Binding="{Binding Path=VerlengWel,UpdateSourceTrigger=PropertyChanged}" />
+                    <DataGridCheckBoxColumn Header="Direct aft." Binding="{Binding Path=MeteenHiaatAftellen,UpdateSourceTrigger=PropertyChanged}" />
                     <DataGridTextColumn Header="Vag4Mvt1" Binding="{Binding Path=Vag4Mvt1,UpdateSourceTrigger=PropertyChanged,TargetNullValue={x:Static sys:String.Empty}}" />
                     <DataGridTextColumn Header="Vag4Mvt2" Binding="{Binding Path=Vag4Mvt2,UpdateSourceTrigger=PropertyChanged,TargetNullValue={x:Static sys:String.Empty}}" />
                 </DataGrid.Columns>
