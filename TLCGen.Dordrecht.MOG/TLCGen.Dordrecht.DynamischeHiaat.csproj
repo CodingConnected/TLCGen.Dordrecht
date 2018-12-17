@@ -57,16 +57,14 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
-    <Reference Include="TLCGen.Controls, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\TLCGen\TLCGen.Parts\TLCGen.Controls\bin\Debug\TLCGen.Controls.dll</HintPath>
+    <Reference Include="TLCGen.Controls">
+      <HintPath>..\..\TLCGen\TLCGen\bin\Debug\TLCGen.Controls.dll</HintPath>
     </Reference>
-    <Reference Include="TLCGen.Dependencies, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\TLCGen\TLCGen.Dependencies\TLCGen.Dependencies\bin\Release\TLCGen.Dependencies.dll</HintPath>
+    <Reference Include="TLCGen.Dependencies">
+      <HintPath>..\..\TLCGen\TLCGen\bin\Debug\TLCGen.Dependencies.dll</HintPath>
     </Reference>
     <Reference Include="TLCGen.Generators.CCOL">
-      <HintPath>..\..\TLCGen\TLCGen\bin\Release\Plugins\TLCGen.Generators.CCOL.dll</HintPath>
+      <HintPath>..\..\TLCGen\TLCGen\bin\Debug\Plugins\TLCGen.Generators.CCOL.dll</HintPath>
     </Reference>
     <Reference Include="WindowsBase" />
   </ItemGroup>

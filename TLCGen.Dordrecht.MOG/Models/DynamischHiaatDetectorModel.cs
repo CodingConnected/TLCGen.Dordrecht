@@ -16,10 +16,11 @@ namespace TLCGen.Dordrecht.DynamischHiaat.Models
         public int TDH1 { get; set; }
         public int TDH2 { get; set; }
         public int Maxtijd { get; set; }
-        public bool Spring { get; set; }
+        public bool SpringStart { get; set; }
         public bool VerlengNiet { get; set; }
-        public bool VerlengWel { get; set; }
-        public bool MeteenHiaatAftellen { get; set; }
+        public bool VerlengExtra { get; set; }
+        public bool DirectAftellen { get; set; }
+        public bool SpringGroen { get; set; }
         public int? Vag4Mvt1 { get; set; }
         public int? Vag4Mvt2 { get; set; }
     }

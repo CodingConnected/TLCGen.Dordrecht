@@ -71,12 +71,12 @@ namespace TLCGen.Dordrecht.DynamischHiaat.ViewModels
             }
         }
 
-        public bool Spring
+        public bool SpringStart
         {
-            get => Detector.Spring;
+            get => Detector.SpringStart;
             set
             {
-                Detector.Spring = value;
+                Detector.SpringStart = value;
                 RaisePropertyChanged<object>(broadcast: true);
             }
         }
@@ -91,22 +91,32 @@ namespace TLCGen.Dordrecht.DynamischHiaat.ViewModels
             }
         }
 
-        public bool VerlengWel
+        public bool VerlengExtra
         {
-            get => Detector.VerlengWel;
+            get => Detector.VerlengExtra;
             set
             {
-                Detector.VerlengWel = value;
+                Detector.VerlengExtra = value;
                 RaisePropertyChanged<object>(broadcast: true);
             }
         }
 
-        public bool MeteenHiaatAftellen
+        public bool DirectAftellen
         {
-            get => Detector.MeteenHiaatAftellen;
+            get => Detector.DirectAftellen;
             set
             {
-                Detector.MeteenHiaatAftellen = value;
+                Detector.DirectAftellen = value;
+                RaisePropertyChanged<object>(broadcast: true);
+            }
+        }
+
+        public bool SpringGroen
+        {
+            get => Detector.SpringGroen;
+            set
+            {
+                Detector.SpringGroen = value;
                 RaisePropertyChanged<object>(broadcast: true);
             }
         }

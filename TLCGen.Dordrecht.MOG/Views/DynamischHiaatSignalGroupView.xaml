@@ -75,10 +75,11 @@ De meegeleverde sourcefile "dynamischhiaat.c" bevat ook een uitleg.
                     <DataGridTextColumn Header="TDH 1" Binding="{Binding Path=TDH1,UpdateSourceTrigger=PropertyChanged}" />
                     <DataGridTextColumn Header="TDH 2" Binding="{Binding Path=TDH2,UpdateSourceTrigger=PropertyChanged}" />
                     <DataGridTextColumn Header="Max" Binding="{Binding Path=Maxtijd,UpdateSourceTrigger=PropertyChanged}" />
-                    <DataGridCheckBoxColumn Header="Spring" Binding="{Binding Path=Spring,UpdateSourceTrigger=PropertyChanged}" />
-                    <DataGridCheckBoxColumn Header="Verleng niet" Binding="{Binding Path=VerlengNiet,UpdateSourceTrigger=PropertyChanged}" />
-                    <DataGridCheckBoxColumn Header="Verleng wel" Binding="{Binding Path=VerlengWel,UpdateSourceTrigger=PropertyChanged}" />
-                    <DataGridCheckBoxColumn Header="Direct aft." Binding="{Binding Path=MeteenHiaatAftellen,UpdateSourceTrigger=PropertyChanged}" />
+                    <DataGridCheckBoxColumn Header="SpringStart" Binding="{Binding Path=SpringStart,UpdateSourceTrigger=PropertyChanged}" />
+                    <DataGridCheckBoxColumn Header="VerlengNiet" Binding="{Binding Path=VerlengNiet,UpdateSourceTrigger=PropertyChanged}" />
+                    <DataGridCheckBoxColumn Header="VerlengExtra" Binding="{Binding Path=VerlengExtra,UpdateSourceTrigger=PropertyChanged}" />
+                    <DataGridCheckBoxColumn Header="DirectAftel" Binding="{Binding Path=DirectAftellen,UpdateSourceTrigger=PropertyChanged}" />
+                    <DataGridCheckBoxColumn Header="SpringGroen" Binding="{Binding Path=SpringGroen,UpdateSourceTrigger=PropertyChanged}" />
                     <DataGridTextColumn Header="Vag4Mvt1" Binding="{Binding Path=Vag4Mvt1,UpdateSourceTrigger=PropertyChanged,TargetNullValue={x:Static sys:String.Empty}}" />
                     <DataGridTextColumn Header="Vag4Mvt2" Binding="{Binding Path=Vag4Mvt2,UpdateSourceTrigger=PropertyChanged,TargetNullValue={x:Static sys:String.Empty}}" />
                 </DataGrid.Columns>

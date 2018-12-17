@@ -8,6 +8,7 @@ using TLCGen.Dordrecht.DynamischHiaat.ViewModels;
 using TLCGen.Dordrecht.DynamischHiaat.Views;
 using TLCGen.Extensions;
 using TLCGen.Generators.CCOL.CodeGeneration;
+using TLCGen.Generators.CCOL.Settings;
 using TLCGen.Helpers;
 using TLCGen.Models;
 using TLCGen.Plugins;
@@ -25,6 +26,7 @@ namespace TLCGen.Dordrecht.DynamischHiaat
         private const string _myName = "Dynamisch hiaat";
         private DynamischHiaatModel _myModel;
         private DynamischHiaatPluginTabViewModel _myTabViewModel;
+        private string _mmk;
 
         #endregion Fields
 
@@ -200,10 +202,11 @@ namespace TLCGen.Dordrecht.DynamischHiaat
                     _myElements.Add(new CCOLElement($"max_{d.DetectorName}", d.Maxtijd, CCOLElementTimeTypeEnum.TE_type, CCOLElementTypeEnum.Timer, $"Dynamische hiaattijden maximale tijd 2 voor detector {d.DetectorName}"));
                     _myElements.Add(new CCOLElement($"verleng_{d.DetectorName}", CCOLElementTypeEnum.HulpElement, $"Instructie verlengen op detector {d.DetectorName} ongeacht dynamische hiaat"));
                     var schprm = 0;
-                    if (d.Spring) schprm += 0x01;
+                    if (d.SpringStart) schprm += 0x01;
                     if (d.VerlengNiet) schprm += 0x02;
-                    if (d.VerlengWel) schprm += 0x04;
-                    if (d.MeteenHiaatAftellen) schprm += 0x08;
+                    if (d.VerlengExtra) schprm += 0x04;
+                    if (d.DirectAftellen) schprm += 0x08;
+                    if (d.SpringGroen) schprm += 0x10;
                     _myElements.Add(new CCOLElement($"sv{_dpf}{d.DetectorName}", schprm, CCOLElementTimeTypeEnum.None, CCOLElementTypeEnum.Parameter, $"Dynamische hiaattijden maximale tijd 2 voor detector {d.DetectorName}"));
                     if (d.Vag4Mvt1.HasValue || d.Vag4Mvt2.HasValue)
                     {
@@ -278,8 +281,20 @@ namespace TLCGen.Dordrecht.DynamischHiaat
                             {
                                 var od = ofc.Detectoren.FirstOrDefault(x => x.Naam == dd.DetectorName);
                                 if (od == null || od.Rijstrook - 1 != i) continue;
-                                sb.AppendLine($"{ts}{ts}IH[{_hpf}opdrempelen{sg.SignalGroupName}] ? 1 : {i + 1}, {_dpf}{od.Naam}, {_tpf}{dd.DetectorName}_1, {_tpf}{dd.DetectorName}_2, {_tpf}tdh_{dd.DetectorName}_1, {_tpf}tdh_{dd.DetectorName}_2, " +
-                                    $"{_tpf}max_{dd.DetectorName}, PRM[{_prmpf}sv{_dpf}{dd.DetectorName}]&BIT0, PRM[{_prmpf}sv{_dpf}{dd.DetectorName}]&BIT1, PRM[{_prmpf}sv{_dpf}{dd.DetectorName}]&BIT2 || IH[{_hpf}verleng_{dd.DetectorName}], PRM[{_prmpf}sv{_dpf}{dd.DetectorName}]&BIT3,  {(dd.Vag4Mvt1.HasValue ? dd.Vag4Mvt1.Value.ToString() : "NG")}, {(dd.Vag4Mvt1.HasValue ? dd.Vag4Mvt1.Value.ToString() : "NG")}, {_mpf}TDH{_dpf}{dd.DetectorName}, ");
+                                sb.AppendLine(
+                                    $"{ts}{ts}IH[{_hpf}opdrempelen{sg.SignalGroupName}] ? 1 : {i + 1}, " +
+                                    $"{_dpf}{od.Naam}, " +
+                                    $"{_mpf}{_mmk}{sg.SignalGroupName}, " +
+                                    $"{_tpf}{dd.DetectorName}_1, " +
+                                    $"{_tpf}{dd.DetectorName}_2, " +
+                                    $"{_tpf}tdh_{dd.DetectorName}_1, " +
+                                    $"{_tpf}tdh_{dd.DetectorName}_2, " +
+                                    $"{_tpf}max_{dd.DetectorName}, " +
+                                    $"{_prmpf}springverleng{_dpf}{dd.DetectorName}, " +
+                                    $"{_hpf}verleng_{dd.DetectorName}, " +
+                                    $"{(dd.Vag4Mvt1.HasValue ? dd.Vag4Mvt1.Value.ToString() : "NG")}, " +
+                                    $"{(dd.Vag4Mvt1.HasValue ? dd.Vag4Mvt1.Value.ToString() : "NG")}, " +
+                                    $"{_mpf}TDH{_dpf}{dd.DetectorName}, ");
                             }
                         }
                         sb.AppendLine($"{ts}{ts}END);");
@@ -298,7 +313,15 @@ namespace TLCGen.Dordrecht.DynamischHiaat
                 "dynamischhiaat.c"
             };
         }
-        
+
+        public override bool SetSettings(CCOLGeneratorClassWithSettingsModel settings)
+        {
+            //_mmk = CCOLGeneratorSettingsProvider.Default.GetElementName("mmk");
+            _mmk = "mk";
+
+            return base.SetSettings(settings);
+        }
+
         #endregion // CCOLCodePieceGenerator
 
         #region Private Methods

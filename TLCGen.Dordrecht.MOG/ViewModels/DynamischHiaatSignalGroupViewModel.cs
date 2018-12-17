@@ -123,9 +123,12 @@ namespace TLCGen.Dordrecht.DynamischHiaat.ViewModels
             get => SignalGroup.Snelheid;
             set
             {
+                if (SignalGroup.Snelheid != value)
+                {
+                    ApplySnelheidsDefaultsToDetectoren(value);
+                    RaisePropertyChanged<object>(broadcast: true);
+                }
                 SignalGroup.Snelheid = value;
-                ApplySnelheidsDefaultsToDetectoren(value);
-                RaisePropertyChanged<object>(broadcast: true);
             }
         }
 
@@ -201,15 +204,18 @@ namespace TLCGen.Dordrecht.DynamischHiaat.ViewModels
                             DynamischHiaatDetectoren[d].TDH1 = sd.Detectoren[dr[od.Rijstrook.Value - 1] - 1].TDH1;
                             DynamischHiaatDetectoren[d].TDH2 = sd.Detectoren[dr[od.Rijstrook.Value - 1] - 1].TDH2;
                             DynamischHiaatDetectoren[d].Maxtijd = sd.Detectoren[dr[od.Rijstrook.Value - 1] - 1].Maxtijd;
-                            DynamischHiaatDetectoren[d].Spring = sd.Detectoren[dr[od.Rijstrook.Value - 1] - 1].Spring;
+                            DynamischHiaatDetectoren[d].SpringStart = sd.Detectoren[dr[od.Rijstrook.Value - 1] - 1].SpringStart;
                             DynamischHiaatDetectoren[d].VerlengNiet = sd.Detectoren[dr[od.Rijstrook.Value - 1] - 1].VerlengNiet;
-                            DynamischHiaatDetectoren[d].VerlengWel = sd.Detectoren[dr[od.Rijstrook.Value - 1] - 1].VerlengWel;
+                            DynamischHiaatDetectoren[d].VerlengExtra = sd.Detectoren[dr[od.Rijstrook.Value - 1] - 1].VerlengExtra;
+                            DynamischHiaatDetectoren[d].SpringGroen = sd.Detectoren[dr[od.Rijstrook.Value - 1] - 1].SpringGroen;
+                            DynamischHiaatDetectoren[d].DirectAftellen = sd.Detectoren[dr[od.Rijstrook.Value - 1] - 1].DirectAftellen;
                             DynamischHiaatDetectoren[d].Vag4Mvt1 = sd.Detectoren[dr[od.Rijstrook.Value - 1] - 1].Vag4Mvt1;
                             DynamischHiaatDetectoren[d].Vag4Mvt2 = sd.Detectoren[dr[od.Rijstrook.Value - 1] - 1].Vag4Mvt2;
                         }
                     }
                 }
             }
+            UpdateSelectableDetectoren(null);
         }
 
         #endregion
