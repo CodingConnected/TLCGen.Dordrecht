@@ -16,8 +16,8 @@
               <TDH1>0</TDH1>
               <TDH2>0</TDH2>
               <Maxtijd>80</Maxtijd>
-              <SpringStart>true</SpringStart>
-              <VerlengNiet>true</VerlengNiet>
+              <SpringStart>false</SpringStart>
+              <VerlengNiet>false</VerlengNiet>
               <VerlengExtra>false</VerlengExtra>
               <DirectAftellen>false</DirectAftellen>
               <SpringGroen>false</SpringGroen>
@@ -32,11 +32,27 @@
               <Moment2>0</Moment2>
               <TDH1>1</TDH1>
               <TDH2>1</TDH2>
+              <Maxtijd>100</Maxtijd>
+              <SpringStart>false</SpringStart>
+              <VerlengNiet>false</VerlengNiet>
+              <VerlengExtra>false</VerlengExtra>
+              <DirectAftellen>false</DirectAftellen>
+              <SpringGroen>true</SpringGroen>
+              <Vag4Mvt1 xsi:nil="true"></Vag4Mvt1>
+              <Vag4Mvt2 xsi:nil="true"></Vag4Mvt2>
+            </Detector>
+            <Detector>
+              <SignalGroupName />
+              <DetectorName />
+              <Moment1>100</Moment1>
+              <Moment2>120</Moment2>
+              <TDH1>15</TDH1>
+              <TDH2>14</TDH2>
               <Maxtijd>0</Maxtijd>
               <SpringStart>true</SpringStart>
               <VerlengNiet>false</VerlengNiet>
               <VerlengExtra>false</VerlengExtra>
-              <DirectAftellen>false</DirectAftellen>
+              <DirectAftellen>true</DirectAftellen>
               <SpringGroen>false</SpringGroen>
               <Vag4Mvt1 xsi:nil="true"></Vag4Mvt1>
               <Vag4Mvt2 xsi:nil="true"></Vag4Mvt2>
@@ -48,22 +64,6 @@
               <Moment2>0</Moment2>
               <TDH1>15</TDH1>
               <TDH2>15</TDH2>
-              <Maxtijd>0</Maxtijd>
-              <SpringStart>false</SpringStart>
-              <VerlengNiet>false</VerlengNiet>
-              <VerlengExtra>false</VerlengExtra>
-              <DirectAftellen>false</DirectAftellen>
-              <SpringGroen>false</SpringGroen>
-              <Vag4Mvt1 xsi:nil="true"></Vag4Mvt1>
-              <Vag4Mvt2 xsi:nil="true"></Vag4Mvt2>
-            </Detector>
-            <Detector>
-              <SignalGroupName />
-              <DetectorName />
-              <Moment1>0</Moment1>
-              <Moment2>0</Moment2>
-              <TDH1>10</TDH1>
-              <TDH2>10</TDH2>
               <Maxtijd>0</Maxtijd>
               <SpringStart>false</SpringStart>
               <VerlengNiet>false</VerlengNiet>
@@ -86,7 +86,7 @@
               <TDH1>0</TDH1>
               <TDH2>0</TDH2>
               <Maxtijd>80</Maxtijd>
-              <SpringStart>true</SpringStart>
+              <SpringStart>false</SpringStart>
               <VerlengNiet>true</VerlengNiet>
               <VerlengExtra>false</VerlengExtra>
               <DirectAftellen>false</DirectAftellen>
@@ -102,11 +102,11 @@
               <TDH1>1</TDH1>
               <TDH2>1</TDH2>
               <Maxtijd>100</Maxtijd>
-              <SpringStart>true</SpringStart>
+              <SpringStart>false</SpringStart>
               <VerlengNiet>false</VerlengNiet>
               <VerlengExtra>false</VerlengExtra>
               <DirectAftellen>false</DirectAftellen>
-              <SpringGroen>false</SpringGroen>
+              <SpringGroen>true</SpringGroen>
               <Vag4Mvt1 xsi:nil="true"></Vag4Mvt1>
               <Vag4Mvt2 xsi:nil="true"></Vag4Mvt2>
             </Detector>
@@ -116,12 +116,12 @@
               <Moment1>100</Moment1>
               <Moment2>220</Moment2>
               <TDH1>20</TDH1>
-              <TDH2>7</TDH2>
+              <TDH2>8</TDH2>
               <Maxtijd>0</Maxtijd>
-              <SpringStart>false</SpringStart>
+              <SpringStart>true</SpringStart>
               <VerlengNiet>false</VerlengNiet>
               <VerlengExtra>false</VerlengExtra>
-              <DirectAftellen>false</DirectAftellen>
+              <DirectAftellen>true</DirectAftellen>
               <SpringGroen>false</SpringGroen>
               <Vag4Mvt1 xsi:nil="true"></Vag4Mvt1>
               <Vag4Mvt2 xsi:nil="true"></Vag4Mvt2>
@@ -155,7 +155,7 @@
               <TDH1>0</TDH1>
               <TDH2>0</TDH2>
               <Maxtijd>80</Maxtijd>
-              <SpringStart>true</SpringStart>
+              <SpringStart>false</SpringStart>
               <VerlengNiet>true</VerlengNiet>
               <VerlengExtra>false</VerlengExtra>
               <DirectAftellen>false</DirectAftellen>
@@ -171,11 +171,11 @@
               <TDH1>1</TDH1>
               <TDH2>1</TDH2>
               <Maxtijd>100</Maxtijd>
-              <SpringStart>true</SpringStart>
-              <VerlengNiet>true</VerlengNiet>
+              <SpringStart>false</SpringStart>
+              <VerlengNiet>false</VerlengNiet>
               <VerlengExtra>false</VerlengExtra>
               <DirectAftellen>false</DirectAftellen>
-              <SpringGroen>false</SpringGroen>
+              <SpringGroen>true</SpringGroen>
               <Vag4Mvt1 xsi:nil="true"></Vag4Mvt1>
               <Vag4Mvt2 xsi:nil="true"></Vag4Mvt2>
             </Detector>
@@ -183,14 +183,14 @@
               <SignalGroupName />
               <DetectorName />
               <Moment1>100</Moment1>
-              <Moment2>200</Moment2>
+              <Moment2>210</Moment2>
               <TDH1>20</TDH1>
               <TDH2>3</TDH2>
               <Maxtijd>0</Maxtijd>
-              <SpringStart>false</SpringStart>
+              <SpringStart>true</SpringStart>
               <VerlengNiet>false</VerlengNiet>
               <VerlengExtra>false</VerlengExtra>
-              <DirectAftellen>false</DirectAftellen>
+              <DirectAftellen>true</DirectAftellen>
               <SpringGroen>false</SpringGroen>
               <Vag4Mvt1 xsi:nil="true"></Vag4Mvt1>
               <Vag4Mvt2 xsi:nil="true"></Vag4Mvt2>
@@ -198,15 +198,15 @@
             <Detector>
               <SignalGroupName />
               <DetectorName />
-              <Moment1>0</Moment1>
-              <Moment2>0</Moment2>
+              <Moment1>200</Moment1>
+              <Moment2>300</Moment2>
               <TDH1>15</TDH1>
-              <TDH2>15</TDH2>
+              <TDH2>10</TDH2>
               <Maxtijd>0</Maxtijd>
-              <SpringStart>false</SpringStart>
+              <SpringStart>true</SpringStart>
               <VerlengNiet>false</VerlengNiet>
               <VerlengExtra>false</VerlengExtra>
-              <DirectAftellen>false</DirectAftellen>
+              <DirectAftellen>true</DirectAftellen>
               <SpringGroen>false</SpringGroen>
               <Vag4Mvt1 xsi:nil="true"></Vag4Mvt1>
               <Vag4Mvt2 xsi:nil="true"></Vag4Mvt2>
@@ -240,7 +240,7 @@
               <TDH1>0</TDH1>
               <TDH2>0</TDH2>
               <Maxtijd>80</Maxtijd>
-              <SpringStart>true</SpringStart>
+              <SpringStart>false</SpringStart>
               <VerlengNiet>true</VerlengNiet>
               <VerlengExtra>false</VerlengExtra>
               <DirectAftellen>false</DirectAftellen>
@@ -256,11 +256,11 @@
               <TDH1>1</TDH1>
               <TDH2>1</TDH2>
               <Maxtijd>100</Maxtijd>
-              <SpringStart>true</SpringStart>
-              <VerlengNiet>true</VerlengNiet>
+              <SpringStart>false</SpringStart>
+              <VerlengNiet>false</VerlengNiet>
               <VerlengExtra>false</VerlengExtra>
               <DirectAftellen>false</DirectAftellen>
-              <SpringGroen>false</SpringGroen>
+              <SpringGroen>true</SpringGroen>
               <Vag4Mvt1 xsi:nil="true"></Vag4Mvt1>
               <Vag4Mvt2 xsi:nil="true"></Vag4Mvt2>
             </Detector>
@@ -269,13 +269,13 @@
               <DetectorName />
               <Moment1>120</Moment1>
               <Moment2>200</Moment2>
-              <TDH1>20</TDH1>
-              <TDH2>3</TDH2>
-              <Maxtijd>0</Maxtijd>
+              <TDH1>15</TDH1>
+              <TDH2>0</TDH2>
+              <Maxtijd>250</Maxtijd>
               <SpringStart>true</SpringStart>
               <VerlengNiet>false</VerlengNiet>
               <VerlengExtra>false</VerlengExtra>
-              <DirectAftellen>false</DirectAftellen>
+              <DirectAftellen>true</DirectAftellen>
               <SpringGroen>false</SpringGroen>
               <Vag4Mvt1 xsi:nil="true"></Vag4Mvt1>
               <Vag4Mvt2 xsi:nil="true"></Vag4Mvt2>
@@ -284,14 +284,14 @@
               <SignalGroupName />
               <DetectorName />
               <Moment1>150</Moment1>
-              <Moment2>300</Moment2>
-              <TDH1>15</TDH1>
-              <TDH2>15</TDH2>
+              <Moment2>310</Moment2>
+              <TDH1>35</TDH1>
+              <TDH2>10</TDH2>
               <Maxtijd>0</Maxtijd>
-              <SpringStart>false</SpringStart>
+              <SpringStart>true</SpringStart>
               <VerlengNiet>false</VerlengNiet>
               <VerlengExtra>false</VerlengExtra>
-              <DirectAftellen>false</DirectAftellen>
+              <DirectAftellen>true</DirectAftellen>
               <SpringGroen>false</SpringGroen>
               <Vag4Mvt1 xsi:nil="true"></Vag4Mvt1>
               <Vag4Mvt2 xsi:nil="true"></Vag4Mvt2>
@@ -325,7 +325,7 @@
               <TDH1>0</TDH1>
               <TDH2>0</TDH2>
               <Maxtijd>80</Maxtijd>
-              <SpringStart>true</SpringStart>
+              <SpringStart>false</SpringStart>
               <VerlengNiet>true</VerlengNiet>
               <VerlengExtra>false</VerlengExtra>
               <DirectAftellen>false</DirectAftellen>
@@ -341,11 +341,11 @@
               <TDH1>1</TDH1>
               <TDH2>1</TDH2>
               <Maxtijd>100</Maxtijd>
-              <SpringStart>true</SpringStart>
-              <VerlengNiet>true</VerlengNiet>
+              <SpringStart>false</SpringStart>
+              <VerlengNiet>false</VerlengNiet>
               <VerlengExtra>false</VerlengExtra>
               <DirectAftellen>false</DirectAftellen>
-              <SpringGroen>false</SpringGroen>
+              <SpringGroen>true</SpringGroen>
               <Vag4Mvt1 xsi:nil="true"></Vag4Mvt1>
               <Vag4Mvt2 xsi:nil="true"></Vag4Mvt2>
             </Detector>
@@ -360,7 +360,7 @@
               <SpringStart>true</SpringStart>
               <VerlengNiet>false</VerlengNiet>
               <VerlengExtra>false</VerlengExtra>
-              <DirectAftellen>false</DirectAftellen>
+              <DirectAftellen>true</DirectAftellen>
               <SpringGroen>false</SpringGroen>
               <Vag4Mvt1 xsi:nil="true"></Vag4Mvt1>
               <Vag4Mvt2 xsi:nil="true"></Vag4Mvt2>
@@ -369,14 +369,14 @@
               <SignalGroupName />
               <DetectorName />
               <Moment1>150</Moment1>
-              <Moment2>300</Moment2>
+              <Moment2>320</Moment2>
               <TDH1>15</TDH1>
               <TDH2>5</TDH2>
               <Maxtijd>0</Maxtijd>
-              <SpringStart>false</SpringStart>
+              <SpringStart>true</SpringStart>
               <VerlengNiet>false</VerlengNiet>
               <VerlengExtra>false</VerlengExtra>
-              <DirectAftellen>false</DirectAftellen>
+              <DirectAftellen>true</DirectAftellen>
               <SpringGroen>false</SpringGroen>
               <Vag4Mvt1 xsi:nil="true"></Vag4Mvt1>
               <Vag4Mvt2 xsi:nil="true"></Vag4Mvt2>
@@ -386,13 +386,13 @@
               <DetectorName />
               <Moment1>200</Moment1>
               <Moment2>400</Moment2>
-              <TDH1>15</TDH1>
-              <TDH2>5</TDH2>
+              <TDH1>30</TDH1>
+              <TDH2>10</TDH2>
               <Maxtijd>0</Maxtijd>
-              <SpringStart>false</SpringStart>
+              <SpringStart>true</SpringStart>
               <VerlengNiet>false</VerlengNiet>
               <VerlengExtra>false</VerlengExtra>
-              <DirectAftellen>false</DirectAftellen>
+              <DirectAftellen>true</DirectAftellen>
               <SpringGroen>false</SpringGroen>
               <Vag4Mvt1 xsi:nil="true"></Vag4Mvt1>
               <Vag4Mvt2 xsi:nil="true"></Vag4Mvt2>
@@ -432,40 +432,8 @@
               <TDH1>0</TDH1>
               <TDH2>0</TDH2>
               <Maxtijd>85</Maxtijd>
-              <SpringStart>true</SpringStart>
-              <VerlengNiet>true</VerlengNiet>
-              <VerlengExtra>false</VerlengExtra>
-              <DirectAftellen>false</DirectAftellen>
-              <SpringGroen>false</SpringGroen>
-              <Vag4Mvt1 xsi:nil="true"></Vag4Mvt1>
-              <Vag4Mvt2 xsi:nil="true"></Vag4Mvt2>
-            </Detector>
-            <Detector>
-              <SignalGroupName />
-              <DetectorName />
-              <Moment1>85</Moment1>
-              <Moment2>150</Moment2>
-              <TDH1>7</TDH1>
-              <TDH2>0</TDH2>
-              <Maxtijd>150</Maxtijd>
               <SpringStart>false</SpringStart>
               <VerlengNiet>true</VerlengNiet>
-              <VerlengExtra>false</VerlengExtra>
-              <DirectAftellen>false</DirectAftellen>
-              <SpringGroen>false</SpringGroen>
-              <Vag4Mvt1 xsi:nil="true"></Vag4Mvt1>
-              <Vag4Mvt2 xsi:nil="true"></Vag4Mvt2>
-            </Detector>
-            <Detector>
-              <SignalGroupName />
-              <DetectorName />
-              <Moment1>150</Moment1>
-              <Moment2>260</Moment2>
-              <TDH1>15</TDH1>
-              <TDH2>4</TDH2>
-              <Maxtijd>0</Maxtijd>
-              <SpringStart>false</SpringStart>
-              <VerlengNiet>false</VerlengNiet>
               <VerlengExtra>false</VerlengExtra>
               <DirectAftellen>false</DirectAftellen>
               <SpringGroen>false</SpringGroen>
@@ -476,9 +444,41 @@
               <SignalGroupName />
               <DetectorName />
               <Moment1>0</Moment1>
-              <Moment2>0</Moment2>
+              <Moment2>65</Moment2>
+              <TDH1>7</TDH1>
+              <TDH2>0</TDH2>
+              <Maxtijd>65</Maxtijd>
+              <SpringStart>false</SpringStart>
+              <VerlengNiet>false</VerlengNiet>
+              <VerlengExtra>false</VerlengExtra>
+              <DirectAftellen>true</DirectAftellen>
+              <SpringGroen>false</SpringGroen>
+              <Vag4Mvt1 xsi:nil="true"></Vag4Mvt1>
+              <Vag4Mvt2 xsi:nil="true"></Vag4Mvt2>
+            </Detector>
+            <Detector>
+              <SignalGroupName />
+              <DetectorName />
+              <Moment1>65</Moment1>
+              <Moment2>175</Moment2>
               <TDH1>15</TDH1>
-              <TDH2>15</TDH2>
+              <TDH2>8</TDH2>
+              <Maxtijd>0</Maxtijd>
+              <SpringStart>true</SpringStart>
+              <VerlengNiet>false</VerlengNiet>
+              <VerlengExtra>false</VerlengExtra>
+              <DirectAftellen>true</DirectAftellen>
+              <SpringGroen>false</SpringGroen>
+              <Vag4Mvt1 xsi:nil="true"></Vag4Mvt1>
+              <Vag4Mvt2 xsi:nil="true"></Vag4Mvt2>
+            </Detector>
+            <Detector>
+              <SignalGroupName />
+              <DetectorName />
+              <Moment1>0</Moment1>
+              <Moment2>0</Moment2>
+              <TDH1>20</TDH1>
+              <TDH2>20</TDH2>
               <Maxtijd>0</Maxtijd>
               <SpringStart>false</SpringStart>
               <VerlengNiet>false</VerlengNiet>
@@ -488,7 +488,7 @@
               <Vag4Mvt1>30</Vag4Mvt1>
               <Vag4Mvt2>30</Vag4Mvt2>
             </Detector>
-          </Detectoren>
+          </Detectoren>            
         </Snelheid>
         <Snelheid>
           <Name>50 km/u</Name>
@@ -501,40 +501,8 @@
               <TDH1>0</TDH1>
               <TDH2>0</TDH2>
               <Maxtijd>85</Maxtijd>
-              <SpringStart>true</SpringStart>
-              <VerlengNiet>true</VerlengNiet>
-              <VerlengExtra>false</VerlengExtra>
-              <DirectAftellen>false</DirectAftellen>
-              <SpringGroen>false</SpringGroen>
-              <Vag4Mvt1 xsi:nil="true"></Vag4Mvt1>
-              <Vag4Mvt2 xsi:nil="true"></Vag4Mvt2>
-            </Detector>
-            <Detector>
-              <SignalGroupName />
-              <DetectorName />
-              <Moment1>85</Moment1>
-              <Moment2>150</Moment2>
-              <TDH1>7</TDH1>
-              <TDH2>0</TDH2>
-              <Maxtijd>150</Maxtijd>
-              <SpringStart>true</SpringStart>
-              <VerlengNiet>true</VerlengNiet>
-              <VerlengExtra>false</VerlengExtra>
-              <DirectAftellen>false</DirectAftellen>
-              <SpringGroen>false</SpringGroen>
-              <Vag4Mvt1 xsi:nil="true"></Vag4Mvt1>
-              <Vag4Mvt2 xsi:nil="true"></Vag4Mvt2>
-            </Detector>
-            <Detector>
-              <SignalGroupName />
-              <DetectorName />
-              <Moment1>150</Moment1>
-              <Moment2>260</Moment2>
-              <TDH1>15</TDH1>
-              <TDH2>4</TDH2>
-              <Maxtijd>0</Maxtijd>
               <SpringStart>false</SpringStart>
-              <VerlengNiet>false</VerlengNiet>
+              <VerlengNiet>true</VerlengNiet>
               <VerlengExtra>false</VerlengExtra>
               <DirectAftellen>false</DirectAftellen>
               <SpringGroen>false</SpringGroen>
@@ -545,9 +513,41 @@
               <SignalGroupName />
               <DetectorName />
               <Moment1>0</Moment1>
+              <Moment2>65</Moment2>
+              <TDH1>7</TDH1>
+              <TDH2>0</TDH2>
+              <Maxtijd>65</Maxtijd>
+              <SpringStart>false</SpringStart>
+              <VerlengNiet>false</VerlengNiet>
+              <VerlengExtra>false</VerlengExtra>
+              <DirectAftellen>true</DirectAftellen>
+              <SpringGroen>true</SpringGroen>
+              <Vag4Mvt1 xsi:nil="true"></Vag4Mvt1>
+              <Vag4Mvt2 xsi:nil="true"></Vag4Mvt2>
+            </Detector>
+            <Detector>
+              <SignalGroupName />
+              <DetectorName />
+              <Moment1>65</Moment1>
+              <Moment2>175</Moment2>
+              <TDH1>15</TDH1>
+              <TDH2>4</TDH2>
+              <Maxtijd>0</Maxtijd>
+              <SpringStart>true</SpringStart>
+              <VerlengNiet>false</VerlengNiet>
+              <VerlengExtra>false</VerlengExtra>
+              <DirectAftellen>true</DirectAftellen>
+              <SpringGroen>false</SpringGroen>
+              <Vag4Mvt1 xsi:nil="true"></Vag4Mvt1>
+              <Vag4Mvt2 xsi:nil="true"></Vag4Mvt2>
+            </Detector>
+            <Detector>
+              <SignalGroupName />
+              <DetectorName />
+              <Moment1>0</Moment1>
               <Moment2>0</Moment2>
-              <TDH1>25</TDH1>
-              <TDH2>25</TDH2>
+              <TDH1>20</TDH1>
+              <TDH2>20</TDH2>
               <Maxtijd>0</Maxtijd>
               <SpringStart>false</SpringStart>
               <VerlengNiet>false</VerlengNiet>

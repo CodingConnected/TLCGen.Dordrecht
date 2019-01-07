@@ -207,7 +207,7 @@ namespace TLCGen.Dordrecht.DynamischHiaat
                     if (d.VerlengExtra) schprm += 0x04;
                     if (d.DirectAftellen) schprm += 0x08;
                     if (d.SpringGroen) schprm += 0x10;
-                    _myElements.Add(new CCOLElement($"sv{_dpf}{d.DetectorName}", schprm, CCOLElementTimeTypeEnum.None, CCOLElementTypeEnum.Parameter, $"Dynamische hiaattijden maximale tijd 2 voor detector {d.DetectorName}"));
+                    _myElements.Add(new CCOLElement($"springverleng_{d.DetectorName}", schprm, CCOLElementTimeTypeEnum.None, CCOLElementTypeEnum.Parameter, $"Dyn. hiaattij instelling voor det. {d.DetectorName} (via bitsturing)"));
                     if (d.Vag4Mvt1.HasValue || d.Vag4Mvt2.HasValue)
                     {
                         var dd = c.Fasen.SelectMany(x => x.Detectoren).FirstOrDefault(x2 => x2.Naam == d.DetectorName);
@@ -274,7 +274,7 @@ namespace TLCGen.Dordrecht.DynamischHiaat
                     {
                         var ofc = c.Fasen.FirstOrDefault(x => x.Naam == sg.SignalGroupName);
                         if (ofc == null) continue;
-                        sb.AppendLine($"{ts}hiaattijden_verlenging(IH[{_hpf}geendynhiaat{sg.SignalGroupName}], SCH[{_schpf}edkop_{sg.SignalGroupName}], {_fcpf}{sg.SignalGroupName}, ");
+                        sb.AppendLine($"{ts}hiaattijden_verlenging(IH[{_hpf}geendynhiaat{sg.SignalGroupName}], SCH[{_schpf}edkop_{sg.SignalGroupName}], {_mpf}{_mmk}{sg.SignalGroupName}, IH[{_hpf}opdrempelen{sg.SignalGroupName}], {_fcpf}{sg.SignalGroupName}, ");
                         for (int i = 0; i < ofc.AantalRijstroken; i++)
                         {
                             foreach(var dd in sg.DynamischHiaatDetectoren)
@@ -282,15 +282,14 @@ namespace TLCGen.Dordrecht.DynamischHiaat
                                 var od = ofc.Detectoren.FirstOrDefault(x => x.Naam == dd.DetectorName);
                                 if (od == null || od.Rijstrook - 1 != i) continue;
                                 sb.AppendLine(
-                                    $"{ts}{ts}IH[{_hpf}opdrempelen{sg.SignalGroupName}] ? 1 : {i + 1}, " +
+                                    $"{ts}{ts}{i + 1}, " +
                                     $"{_dpf}{od.Naam}, " +
-                                    $"{_mpf}{_mmk}{sg.SignalGroupName}, " +
                                     $"{_tpf}{dd.DetectorName}_1, " +
                                     $"{_tpf}{dd.DetectorName}_2, " +
                                     $"{_tpf}tdh_{dd.DetectorName}_1, " +
                                     $"{_tpf}tdh_{dd.DetectorName}_2, " +
                                     $"{_tpf}max_{dd.DetectorName}, " +
-                                    $"{_prmpf}springverleng{_dpf}{dd.DetectorName}, " +
+                                    $"{_prmpf}springverleng_{dd.DetectorName}, " +
                                     $"{_hpf}verleng_{dd.DetectorName}, " +
                                     $"{(dd.Vag4Mvt1.HasValue ? dd.Vag4Mvt1.Value.ToString() : "NG")}, " +
                                     $"{(dd.Vag4Mvt1.HasValue ? dd.Vag4Mvt1.Value.ToString() : "NG")}, " +
