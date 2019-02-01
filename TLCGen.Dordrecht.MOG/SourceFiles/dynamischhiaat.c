@@ -9,6 +9,7 @@
    * 1.0.0    25- 1-2018   Kzw         Basisversie i.o.v. IVER
    * 2.0.0    05-12-2018   ddo         Diverse aanpassingen voor stedelijk gebruik
    * 2.1.0    24-12-2018   ddo         Diverse aanpassingen na Vissim simulatie
+   * 2.2.0    01-02-2019   ddo         Correctie veiligheidsgroen verwijderd
    *
    ***********************************************************************************************************
 
@@ -74,9 +75,6 @@
                    maximum groentijd TFG_max[] + TVG_max[]     
    -- array-nummer parameter detectorvoorwaarden (zie hieronder)
    -- array-nummer hulpelement extra verlengvoorwaarde (zie hieronder)
-   -- array-nummer veiligheidsgroen rijtimer 1 (t.b.v. CORRECTIE op veiligheidsgroen uit stdfunc; de functie 
-                   uit stdfunc dus OOK inschakelen)
-   -- array-nummer veiligheidsgroen rijtimer 2
    -- array-nummer memory element t.b.v. bewaren oorspronkelijke (statische) hiaattijd
 
    De parameter 'detectorvoorwaarden' omvat de volgende opties:
@@ -128,15 +126,15 @@
                                     1e argument,      2e argument, 3e arg,        4e argument, 5e arg,
    hiaattijden_verlenging ( IH[hgeendynhiaat05], SCH[schedkop_05],  mmk05, IH[hopdrempelen05],   fc05, 
 
-    rijstr,  det,  moment1,  moment2,       tdh1,       tdh2,  maxtijd,      spring- en verlengvoorwaarden, tvag4_mvt_1,  tvag4_mvt_2, stat.TDH, 
-         1, d051,   t051_1,   t051_2, ttdh_051_1, ttdh_051_2, tmax_051, prmspringverleng_051, hverlengd051,          NG,           NG, mTDHd051, 
-         1, d053,   t053_1,   t053_2, ttdh_053_1, ttdh_053_2, tmax_053, prmspringverleng_053, hverlengd053,          NG,           NG, mTDHd053, 
-         1, d055,   t055_1,   t055_2, ttdh_055_1, ttdh_055_2, tmax_055, prmspringverleng_055, hverlengd055,          NG,           NG, mTDHd055, 
-         1, d057,   t057_1,   t057_2, ttdh_057_1, ttdh_057_2, tmax_057, prmspringverleng_057, hverlengd057,          30,           30, mTDHd057, 
-         2, d052,   t052_1,   t052_2, ttdh_052_1, ttdh_052_2, tmax_052, prmspringverleng_052, hverlengd052,          NG,           NG, mTDHd052, 
-         2, d054,   t054_1,   t054_2, ttdh_054_1, ttdh_054_2, tmax_054, prmspringverleng_054, hverlengd054,          NG,           NG, mTDHd054, 
-         2, d056,   t056_1,   t056_2, ttdh_056_1, ttdh_056_2, tmax_056, prmspringverleng_056, hverlengd056,          NG,           NG, mTDHd056, 
-         2, d058,   t058_1,   t058_2, ttdh_058_1, ttdh_058_2, tmax_058, prmspringverleng_058, hverlengd058,          30,           30, mTDHd058, 
+    rijstr,  det,  moment1,  moment2,       tdh1,       tdh2,  maxtijd,      spring- en verlengvoorwaarden, stat.TDH, 
+         1, d051,   t051_1,   t051_2, ttdh_051_1, ttdh_051_2, tmax_051, prmspringverleng_051, hverlengd051, mTDHd051, 
+         1, d053,   t053_1,   t053_2, ttdh_053_1, ttdh_053_2, tmax_053, prmspringverleng_053, hverlengd053, mTDHd053, 
+         1, d055,   t055_1,   t055_2, ttdh_055_1, ttdh_055_2, tmax_055, prmspringverleng_055, hverlengd055, mTDHd055, 
+         1, d057,   t057_1,   t057_2, ttdh_057_1, ttdh_057_2, tmax_057, prmspringverleng_057, hverlengd057, mTDHd057, 
+         2, d052,   t052_1,   t052_2, ttdh_052_1, ttdh_052_2, tmax_052, prmspringverleng_052, hverlengd052, mTDHd052, 
+         2, d054,   t054_1,   t054_2, ttdh_054_1, ttdh_054_2, tmax_054, prmspringverleng_054, hverlengd054, mTDHd054, 
+         2, d056,   t056_1,   t056_2, ttdh_056_1, ttdh_056_2, tmax_056, prmspringverleng_056, hverlengd056, mTDHd056, 
+         2, d058,   t058_1,   t058_2, ttdh_058_1, ttdh_058_2, tmax_058, prmspringverleng_058, hverlengd058, mTDHd058, 
          END);
 
 	De hulpelementen IH[hgeendynhiaat05] en IH[hopdrempelen05] kunnen zowel met een schakelaar als vanuit de 
@@ -145,10 +143,10 @@
    ======================================================================================================== */
 
 
-#if !defined AUTOMAAT || defined VISSIM   /* nog verwijderen */
-   /* definitie tbv voorkomen compiler warning */
-   extern int xyprintf(int x, int y, const char * szFormat, ...);
-#endif
+//#if !defined AUTOMAAT || defined VISSIM   /* nog verwijderen */
+//   /* definitie tbv voorkomen compiler warning */
+//   extern int xyprintf(int x, int y, const char * szFormat, ...);
+//#endif
 
 static int eavl[FCMAX][5];
 static int detstor[FCMAX];
@@ -204,10 +202,10 @@ void hiaattijden_verlenging(bool nietToepassen, bool vrijkomkop, count mmk, bool
               if (CIF_IS[dpnr] >= CIF_DET_STORING /*|| OG[dpnr]*/ || BG[dpnr])               detstor[fc] |= TRUE;
             #endif
         
-            #if !defined AUTOMAAT || defined VISSIM  /* nog verwijderen */
-              xyprintf(125,10,"detstor");
-              xyprintf(125,10+2*fc+rijstrook, "     %d",detstor[fc]);
-            #endif
+//            #if !defined AUTOMAAT || defined VISSIM  /* nog verwijderen */
+//              xyprintf(125,10,"detstor");
+//              xyprintf(125,10+2*fc+rijstrook, "     %d",detstor[fc]);
+//            #endif
          }
   
         /* tijdens R[] statische hiaten gebruiken tbv default TLCGen detectieopvang; det.storing resetten op TRG[] */ /*-*/
@@ -300,7 +298,7 @@ void hiaattijden_verlenging(bool nietToepassen, bool vrijkomkop, count mmk, bool
         if ((RT[tmax] || T[tmax]            /* maximum tijd loopt nog voor deze detector                         */
              || evlvw )              &&     /* of extra verlengvoorwaarde is aktief                              */ /*-*/ 
             G[fc]                    &&     /* signaalgroep is groen                                             */
-//          TDH[dpnr]                &&     /* hiaattijd van de detector loopt                                   */ /* uitgecommentaard in Goudappel code */
+/*          TDH[dpnr]                && */  /* hiaattijd van de detector loopt                                   */ /* uitgecommentaard in Goudappel code */
             eavl[fc][rijstrook] == 0   ) {  /* eerste actieve verlenglus is op deze rijstrook nog niet ingesteld */
           eavl[fc][rijstrook] = dp_teller;
         }
@@ -324,13 +322,13 @@ void hiaattijden_verlenging(bool nietToepassen, bool vrijkomkop, count mmk, bool
         }
         
         
-        #if !defined AUTOMAAT || defined VISSIM /* nog verwijderen */
-          xyprintf(30,10+0,   "   dp   tdh   t1   t2   h1   h2    max  tmmax TDHsaw  dp ");
-          xyprintf(30,10+1+dpnr, "  %s   %3d  %3d  %3d  %3d  %3d    %3d   %3d   %3d  %3d ",D_code[dpnr],TDH_max[dpnr],T_timer[t1],T_timer[t2],T_max[tdh1],T_max[tdh2],
-        	                                                                               T_max[tmax],T_timer[tmax],tdh_saw[rijstrook], dp_teller);
-        xyprintf(90,10,"fc   rijstr   eavl   verl   MMmk ");
-        xyprintf(90,10+2*fc+rijstrook, "%s     %3d    %3d      %d  %5d",FC_code[fc],rijstrook,eavl[fc][rijstrook],verlengen[rijstrook],MM[mmk]);
-        #endif
+//       #if !defined AUTOMAAT || defined VISSIM /* nog verwijderen */
+//         xyprintf(30,10+0,   "   dp   tdh   t1   t2   h1   h2    max  tmmax TDHsaw  dp ");
+//         xyprintf(30,10+1+dpnr, "  %s   %3d  %3d  %3d  %3d  %3d    %3d   %3d   %3d  %3d ",D_code[dpnr],TDH_max[dpnr],T_timer[t1],T_timer[t2],T_max[tdh1],T_max[tdh2],
+//       	                                                                               T_max[tmax],T_timer[tmax],tdh_saw[rijstrook], dp_teller);
+//       xyprintf(90,10,"fc   rijstr   eavl   verl   MMmk ");
+//       xyprintf(90,10+2*fc+rijstrook, "%s     %3d    %3d      %d  %5d",FC_code[fc],rijstrook,eavl[fc][rijstrook],verlengen[rijstrook],MM[mmk]);
+//       #endif
         
         /* Correctie MM[mmk] bij opdrempelen toegestaan; andere aanroep van meetkriterium2 niet nodig */   /*-*/
         if (opdr) {
@@ -349,38 +347,6 @@ void hiaattijden_verlenging(bool nietToepassen, bool vrijkomkop, count mmk, bool
               break;
           }
         }
-      
-        
-        /* afhandeling veiligheidsgroen, opgenomen in hoofdfunctie */ /*-*/
-        if ((tvag4_1 != NG) && (tvag4_2 != NG) && SD[dpnr] && CIF_IS[dpnr]<CIF_DET_STORING) {  
-          if (!T[tvag4_1]) {                              /* rijtimer 1 loopt nog niet              */
-            RT[tvag4_1] = TRUE;
-          }
-          else {                                          /* rijtimer 1 loopt al                    */
-            if (!T[tvag4_2]) {                            /* rijtimer 2 loopt nog niet              */
-              RT[tvag4_2] = TRUE;
-            }
-            else {                                        /* beide rijtimers lopen al               */
-              if (T_timer[tvag4_1] > T_timer[tvag4_2]) {  /* rijtimer 1 loopt langer dan timer 2    */
-                RT[tvag4_1] = TRUE;
-              }
-              else {                                      /* rijtimer 2 loopt langer dan timer 1    */
-                RT[tvag4_2] = TRUE;
-              }
-            }
-          }
-        }
-        else if ((tvag4_1 != NG) && (tvag4_2 != NG)) {
-          RT[tvag4_1] = FALSE;
-          RT[tvag4_2] = FALSE;
-        }
-        
-        if ((tvag4_1 != NG) && (tvag4_2 != NG) &&
-          (!(RT[tvag4_1] || T[tvag4_1]) ||
-             !(RT[tvag4_2] || T[tvag4_2]))   ) {            /* minder dan 2 voertuigen in dilemmazone */
-          YM[fc] &= ~BIT2;                                /* reset veiligheidsgroen                 */
-        }
-        /* einde afhandeling veiligheidsgroen */
       }
     } while (rijstrook>=0);
     va_end(argpt);                     /* maak var. arg-lijst leeg */
